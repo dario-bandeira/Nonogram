@@ -1,4 +1,4 @@
-m = [["x" for x in range(16)] for y in range(16)]
+m = [["·" for x in range(16)] for y in range(16)]
 
 m[0][15] = [1, 2, 3]
 m[1][15] = [2, 4, 3]
@@ -31,6 +31,57 @@ m[15][11] = [8, 4]
 m[15][12] = [8, 5]
 m[15][13] = [5, 4]
 m[15][14] = [1, 4]
+
+linhas_que_tem_maior_igual_8 = []
+for ind, x in enumerate(m[:15]):
+    for y in x[15]:
+        if y >= 8:
+            linhas_que_tem_maior_igual_8.append(ind)
+
+# passo 1
+for linha in linhas_que_tem_maior_igual_8:
+
+    quantas_barras_tem_na_linha = len(m[linha][15])
+    indice_do_maior = m[linha][15].index(max(m[linha][15]))
+    tamanho_da_barra = ((max(m[linha][15]) - 7) * 2) - 1
+
+    marcar_x_depois = 0
+    marcar_x_antes = 0
+    espacos_antes = 0
+    espacos_depois = 0
+
+    if quantas_barras_tem_na_linha > 1:  # tem mais de 1 número
+
+        if indice_do_maior < quantas_barras_tem_na_linha - 1:  # tem barra depois do maior
+
+            espacos_depois = (quantas_barras_tem_na_linha - (indice_do_maior + 1))
+
+            for n_barra in m[linha][15][indice_do_maior+1:]:
+                marcar_x_depois += n_barra
+            marcar_x_depois += espacos_depois
+
+        if indice_do_maior != 0:  # tem barra antes do maior
+
+            espacos_antes = indice_do_maior
+
+            for n_barra in m[linha][15][:indice_do_maior]:
+                #                      [0:-1]
+                marcar_x_antes += n_barra
+            marcar_x_antes += espacos_antes
+
+        # print("x_depois: ", marcar_x_depois)
+        # print("x_antes: ", marcar_x_antes)
+        # print("linha: ", linha)
+        # print("---")
+
+    guia = 7
+    for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
+        m[linha][guia] = 0
+        guia -= 1
+    guia = 7
+    for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
+        m[linha][guia] = 0
+        guia += 1
 
 
 def print_matrix():
