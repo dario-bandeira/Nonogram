@@ -1,3 +1,4 @@
-list = [1, 8, 1]
+x = 3
 
-print(list[:1])
+for y in range(x):
+    print(y)
