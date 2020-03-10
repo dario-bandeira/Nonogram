@@ -132,6 +132,26 @@ def passo3():
         if barra_cheia:
             linha[ultima_casa_da_linha - 1] = "x"
 
+    # pra baixo
+    for coluna in range(15):
+        for linha in range(15):
+            barra_cheia = False
+            if m[0][coluna] == 0:
+                barra_cheia = True
+
+            preencher_com = "·"
+            ultima_casa_da_linha = 0
+            tamanho_da_barra = m[15][coluna][0]
+            for y in range(tamanho_da_barra):
+                if m[y][coluna] == 0:
+                    preencher_com = 0
+                m[y][coluna] = preencher_com
+                ultima_casa_da_linha = y
+
+            if barra_cheia:
+                m[ultima_casa_da_linha + 1][coluna] = "x"
+
+
 
 passo1()
 passo3()
