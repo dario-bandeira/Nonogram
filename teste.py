@@ -1,4 +1,2 @@
-x = 3
-
-for y in range(x):
-    print(y)
+for x in range(10, 0, -1):
+    print(x)

@@ -38,6 +38,18 @@ for ind, x in enumerate(m[:15]):
         if y >= 8:
             linhas_que_tem_maior_igual_8.append(ind)
 
+
+# def girar90horario(A):
+#     N = len(A[0])
+#     for i in range(N // 2):
+#         for j in range(i, N - i - 1):
+#             temp = A[i][j]
+#             A[i][j] = A[N - 1 - j][i]
+#             A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
+#             A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
+#             A[j][N - 1 - i] = temp
+
+
 def passo1():
     for linha in linhas_que_tem_maior_igual_8:
 
@@ -56,7 +68,7 @@ def passo1():
 
                 espacos_depois = (quantas_barras_tem_na_linha - (indice_do_maior + 1))
 
-                for n_barra in m[linha][15][indice_do_maior+1:]:
+                for n_barra in m[linha][15][indice_do_maior + 1:]:
                     marcar_x_depois += n_barra
                 marcar_x_depois += espacos_depois
 
@@ -84,26 +96,44 @@ def passo1():
             guia += 1
 
 
-#passo1()
-
-
 def passo3():
-    for linha in m:
+    # pra direita
+    for linha in m[:15]:
         barra_cheia = False
         if linha[0] == 0:
             barra_cheia = True
 
         preencher_com = "·"
         ultima_casa_da_linha = 0
-        for y in range(linha[15][0]):
+        tamanho_da_barra = linha[15][0]
+        for y in range(tamanho_da_barra):
             if linha[y] == 0:
                 preencher_com = 0
             linha[y] = preencher_com
             ultima_casa_da_linha = y
 
-        if barra_cheia: linha[ultima_casa_da_linha+1] = "x"
+        if barra_cheia: linha[ultima_casa_da_linha + 1] = "x"
+
+    # pra esquerda
+    for linha in m[:15]:
+        barra_cheia = False
+        if linha[14] == 0:
+            barra_cheia = True
+
+        preencher_com = "·"
+        ultima_casa_da_linha = 0
+        tamanho_da_barra = linha[15][-1]
+        for y in range(14, 15 - tamanho_da_barra - 1, -1):
+            if linha[y] == 0:
+                preencher_com = 0
+            linha[y] = preencher_com
+            ultima_casa_da_linha = y
+
+        if barra_cheia:
+            linha[ultima_casa_da_linha - 1] = "x"
 
 
+passo1()
 passo3()
 
 
