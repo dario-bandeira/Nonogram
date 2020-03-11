@@ -250,9 +250,28 @@ def passo4():
                 m[voltando][coluna] = "x"
 
 
+def passo5():
+    '''
+    Quebrar as linhas (e colunas) em pedaços usando os X's como divisor.
+    Conferir se o número de pedaços é o mesmo número de
+    barras da linha. Se for, e se não couberem duas
+    barras em um único espaço, sabemos que cada barra está dentro de
+    cada pedaço, então é preencher os espaços que são certeza. Assim:
+
+    SE o número em questão é maior que a metade do espaço:
+    Conta da esquerda pra direita e marca o último quadrado.
+    Depois da direita pra esquerda e pinta todos a partir do pintado
+    anteriormente, até completar o número. Depois contar da esquerda
+    pra direita a partir do primeiro quadrado pintado o número em
+    questão, e marcar X nos que sobrarem. Fazer a mesma coisa da
+    direita pra esquerda.
+    '''
+
+
 passo1()
 passo3()
 passo4()
+passo5()
 
 
 def print_matrix():
