@@ -1,10 +1,1 @@
-m = [
-    [1, 5, 1, 1],
-    [2, 8, 6, 2],
-    [3, 1, 3, 7],
-    [4, 8, 0, 4]
-]
-
-for x in m[0]:
-    for y in m:
-        print(y)
+print('{:15}'.format('Python'))

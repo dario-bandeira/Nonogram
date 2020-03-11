@@ -151,6 +151,24 @@ def passo3():
             if barra_cheia:
                 m[ultima_casa_da_linha + 1][coluna] = "x"
 
+    # pra cima
+    for coluna in range(15):
+        for linha in range(15):
+            barra_cheia = False
+            if m[14][coluna] == 0:
+                barra_cheia = True
+
+            preencher_com = "·"
+            ultima_casa_da_linha = 0
+            tamanho_da_barra = m[15][coluna][-1]
+            for y in range(14, 15 - tamanho_da_barra - 1, -1):
+                if m[y][coluna] == 0:
+                    preencher_com = 0
+                m[y][coluna] = preencher_com
+                ultima_casa_da_linha = y
+
+            if barra_cheia:
+                m[ultima_casa_da_linha - 1][coluna] = "x"
 
 
 passo1()
@@ -158,8 +176,26 @@ passo3()
 
 
 def print_matrix():
-    for x in m:
+    for x in m[:15]:
         print(*x)
+
+    for x in m[15]:
+        print('{: <2}'.format(x[0]), end='')
+    print()
+    for x in m[15]:
+        if len(x) >= 2:
+            print('{: <2}'.format(x[1]), end='')
+        else:
+            print('{: <2}'.format(" "), end='')
+    print()
+    for x in m[15]:
+        if len(x) >= 3:
+            print('{: <2}'.format(x[2]), end='')
+        else:
+            print('{: <2}'.format(" "), end='')
+
+
+
 
 
 print_matrix()
