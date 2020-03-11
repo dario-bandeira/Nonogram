@@ -51,6 +51,12 @@ for ind, x in enumerate(m[:15]):
 
 
 def passo1():
+    '''
+    Achar na linha um número maior ou igual a 8 e
+    preencher a barra a partir do meio da linha.
+    Usar os números vizinhos pra preencher ao redor
+    da barra, considerando os espaços.
+    '''
     for linha in linhas_que_tem_maior_igual_8:
 
         quantas_barras_tem_na_linha = len(m[linha][15])
@@ -97,6 +103,18 @@ def passo1():
 
 
 def passo3():
+    '''
+    Ver se tem quadrado pintado encostado nas paredes.
+    A partir dele, desenhar os adjacentes e marcar o
+    fim com um X.
+    -ou-
+    Se o primeiro quadrado NÃO for pintado, ir contando
+    a partir da borda e quando encontrar um
+    quadrado pintado, pintar os seguintes até completar o
+    número em questão, mas nesse caso não marca o
+    fim com X. Lembrar de ignorar os X que aparecem
+    desde o começo da linha.
+    '''
     # pra direita
     for linha in m[:15]:
         barra_cheia = False
@@ -171,8 +189,70 @@ def passo3():
                 m[ultima_casa_da_linha - 1][coluna] = "x"
 
 
+def passo4():
+    '''
+    A partir da borda, conferir se a primeira barra
+    cabe no primeiro espaço vazio. Se não couber,
+    preencher o espaço com X.
+    '''
+
+    # pra direita
+    for linha in range(15):
+        tamanho_do_primeiro_espaco = 0
+        for coluna in range(15):
+            if m[linha][coluna] != "x":
+                tamanho_do_primeiro_espaco += 1
+            else:
+                break
+
+        if tamanho_do_primeiro_espaco < m[linha][15][0]:
+            for voltando in range(coluna, -1, -1):
+                m[linha][voltando] = "x"
+
+
+    # pra esquerda
+    for linha in range(15):
+        tamanho_do_ultimo_espaco = 0
+        for coluna in range(14, -1, -1):
+            if m[linha][coluna] != "x":
+                tamanho_do_ultimo_espaco += 1
+            else:
+                break
+
+        if tamanho_do_ultimo_espaco < m[linha][15][-1]:
+            for voltando in range(coluna, 15):
+                m[linha][voltando] = "x"
+
+    # pra baixo
+    for coluna in range(15):
+        tamanho_do_primeiro_espaco = 0
+        for linha in range(15):
+            if m[linha][coluna] != "x":
+                tamanho_do_primeiro_espaco += 1
+            else:
+                break
+
+        if tamanho_do_primeiro_espaco < m[15][coluna][0]:
+            for voltando in range(linha, -1, -1):
+                m[voltando][coluna] = "x"
+
+    # pra cima
+    for coluna in range(15):
+        tamanho_do_ultimo_espaco = 0
+        for linha in range(14, -1, -1):
+            if m[linha][coluna] != "x":
+                tamanho_do_ultimo_espaco += 1
+            else:
+                break
+
+        if tamanho_do_ultimo_espaco < m[15][coluna][-1]:
+            for voltando in range(linha, 15):
+                m[voltando][coluna] = "x"
+
+
 passo1()
 passo3()
+passo4()
 
 
 def print_matrix():
@@ -193,9 +273,6 @@ def print_matrix():
             print('{: <2}'.format(x[2]), end='')
         else:
             print('{: <2}'.format(" "), end='')
-
-
-
 
 
 print_matrix()
