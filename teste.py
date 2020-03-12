@@ -1,4 +1,12 @@
-for x in range(10):
-    if x == 3:
-        continue
-    print(x)
+for x in range(2):
+    for y in range(10):
+        print(y)
+        if y == 5:
+            break
+
+    print("---------")
+
+    for y in range(10):
+        print(y)
+        if y == 5:
+            break

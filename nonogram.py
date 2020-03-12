@@ -209,7 +209,6 @@ def passo4():
             for voltando in range(coluna, -1, -1):
                 m[linha][voltando] = "x"
 
-
     # pra esquerda
     for linha in range(15):
         tamanho_do_ultimo_espaco = 0
@@ -267,6 +266,49 @@ def passo5():
     direita pra esquerda.
     '''
 
+    m[0][0] = "x"
+    m[1][0] = "x"
+    m[1][1] = "x"
+    m[2][1] = "x"
+    m[2][2] = "x"
+    m[2][3] = "x"
+    for linha in range(15):
+        comecar_por_aqui = 0
+        tamanho_de_cada_parte = []
+        medindo = 0
+        for coluna in range(15):
+            if m[linha][coluna] == "x":
+                comecar_por_aqui += 1
+            else:
+                break
+        for coluna in range(comecar_por_aqui, 15):
+            if m[linha][coluna] != "x":
+                medindo += 1
+            if m[linha][coluna] == "x" and m[linha][coluna + 1] != "x":
+                tamanho_de_cada_parte.append(medindo)
+                medindo = 0
+
+        tamanho_de_cada_parte.append(medindo)
+
+        if len(tamanho_de_cada_parte) == len(m[linha][15]):
+            barras = m[linha][15]
+            cabe_mais_de_um = False
+            for i, tamanho in enumerate(tamanho_de_cada_parte):
+                if len(tamanho_de_cada_parte) > 1:  # se tem mais de uma parte
+                    if i == 0:  # primeira casa
+                        if tamanho >= barras[i] + barras[i+1] + 1:
+                            cabe_mais_de_um = True
+                    elif i == len(tamanho_de_cada_parte) - 1:  # última casa
+                        if tamanho >= barras[i-1] + barras[i] + 1:
+                            cabe_mais_de_um = True
+                    else:  # do meio
+                        if (tamanho >= barras[i-1] + barras[i] + 1 or
+                        tamanho >= barras[i] + barras[i+1] + 1):
+                            cabe_mais_de_um = True
+
+                    if cabe_mais_de_um:
+                        print("cabe ", linha)
+
 
 passo1()
 passo3()
@@ -275,18 +317,23 @@ passo5()
 
 
 def print_matrix():
-    for x in m[:15]:
+    for i, x in enumerate(m[:15]):
+        print('{: <2} '.format(i), end='')
         print(*x)
+    print("   ", end='')
 
     for x in m[15]:
         print('{: <2}'.format(x[0]), end='')
     print()
+    print("   ", end='')
+
     for x in m[15]:
         if len(x) >= 2:
             print('{: <2}'.format(x[1]), end='')
         else:
             print('{: <2}'.format(" "), end='')
     print()
+    print("   ", end='')
     for x in m[15]:
         if len(x) >= 3:
             print('{: <2}'.format(x[2]), end='')
