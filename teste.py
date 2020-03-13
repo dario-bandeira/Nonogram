@@ -1,12 +1,3 @@
-for x in range(2):
-    for y in range(10):
-        print(y)
-        if y == 5:
-            break
+a = [1, 2]
 
-    print("---------")
-
-    for y in range(10):
-        print(y)
-        if y == 5:
-            break
+print(a[1:])

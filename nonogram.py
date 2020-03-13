@@ -33,10 +33,14 @@ m[15][13] = [5, 4]
 m[15][14] = [1, 4]
 
 linhas_que_tem_maior_igual_8 = []
-for ind, x in enumerate(m[:15]):
-    for y in x[15]:
-        if y >= 8:
-            linhas_que_tem_maior_igual_8.append(ind)
+for i, x in enumerate(m[:15]):
+    if max(x[15]) >= 8:
+        linhas_que_tem_maior_igual_8.append(i)
+
+colunas_que_tem_maior_igual_8 = []
+for coluna in range(15):
+    if max(m[15][coluna]) >= 8:
+        colunas_que_tem_maior_igual_8.append(coluna)
 
 
 # def girar90horario(A):
@@ -57,6 +61,8 @@ def passo1():
     Usar os números vizinhos pra preencher ao redor
     da barra, considerando os espaços.
     '''
+
+    # linhas
     for linha in linhas_que_tem_maior_igual_8:
 
         quantas_barras_tem_na_linha = len(m[linha][15])
@@ -87,11 +93,6 @@ def passo1():
                     marcar_x_antes += n_barra
                 marcar_x_antes += espacos_antes
 
-            # print("x_depois: ", marcar_x_depois)
-            # print("x_antes: ", marcar_x_antes)
-            # print("linha: ", linha)
-            # print("---")
-
         guia = 7
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
             m[linha][guia] = 0
@@ -100,6 +101,47 @@ def passo1():
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
             m[linha][guia] = 0
             guia += 1
+
+    # colunas
+    for coluna in colunas_que_tem_maior_igual_8:
+
+        quantas_barras_tem_na_linha = len(m[15][coluna])
+        indice_do_maior = m[15][coluna].index(max(m[15][coluna]))
+        tamanho_da_barra = ((max(m[15][coluna]) - 7) * 2) - 1
+
+        marcar_x_depois = 0
+        marcar_x_antes = 0
+        espacos_antes = 0
+        espacos_depois = 0
+
+        if quantas_barras_tem_na_linha > 1:  # tem mais de 1 número
+
+            if indice_do_maior < quantas_barras_tem_na_linha - 1:  # tem barra depois do maior
+
+                espacos_depois = (quantas_barras_tem_na_linha - (indice_do_maior + 1))
+
+                for n_barra in m[15][coluna][indice_do_maior + 1:]:
+                    marcar_x_depois += n_barra
+                marcar_x_depois += espacos_depois
+
+            if indice_do_maior != 0:  # tem barra antes do maior
+
+                espacos_antes = indice_do_maior
+
+                for n_barra in m[15][coluna][:indice_do_maior]:
+                    #                      [0:-1]
+                    marcar_x_antes += n_barra
+                marcar_x_antes += espacos_antes
+
+        guia = 7
+        for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
+            m[guia][coluna] = 0
+            guia -= 1
+        guia = 7
+        for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
+            m[guia][coluna] = 0
+            guia += 1
+
 
 
 def passo3():
@@ -266,12 +308,12 @@ def passo5():
     direita pra esquerda.
     '''
 
-    m[0][0] = "x"
-    m[1][0] = "x"
-    m[1][1] = "x"
-    m[2][1] = "x"
-    m[2][2] = "x"
-    m[2][3] = "x"
+    # m[0][0] = "x"
+    # m[1][0] = "x"
+    # m[1][1] = "x"
+    # m[2][1] = "x"
+    # m[2][2] = "x"
+    # m[2][3] = "x"
     for linha in range(15):
         comecar_por_aqui = 0
         tamanho_de_cada_parte = []
@@ -293,27 +335,42 @@ def passo5():
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
             barras = m[linha][15]
             cabe_mais_de_um = False
+            indice_inicio_de_cada_parte = [0]
+            for i, x in enumerate(tamanho_de_cada_parte[1:], 1):
+                indice_inicio_de_cada_parte.append(
+                    tamanho_de_cada_parte[i - 1] + indice_inicio_de_cada_parte[i - 1] + 1)
+            indice_inicio_de_cada_parte.append(15)
+
             for i, tamanho in enumerate(tamanho_de_cada_parte):
                 if len(tamanho_de_cada_parte) > 1:  # se tem mais de uma parte
                     if i == 0:  # primeira casa
-                        if tamanho >= barras[i] + barras[i+1] + 1:
+                        if tamanho >= barras[i] + barras[i + 1] + 1:
                             cabe_mais_de_um = True
                     elif i == len(tamanho_de_cada_parte) - 1:  # última casa
-                        if tamanho >= barras[i-1] + barras[i] + 1:
+                        if tamanho >= barras[i - 1] + barras[i] + 1:
                             cabe_mais_de_um = True
                     else:  # do meio
-                        if (tamanho >= barras[i-1] + barras[i] + 1 or
-                        tamanho >= barras[i] + barras[i+1] + 1):
+                        if (tamanho >= barras[i - 1] + barras[i] + 1 or
+                                tamanho >= barras[i] + barras[i + 1] + 1):
                             cabe_mais_de_um = True
 
-                    if cabe_mais_de_um:
-                        print("cabe ", linha)
+                # if not cabe_mais_de_um:
+
+        '''
+        SE o número em questão é maior que a metade do espaço:
+        Conta da esquerda pra direita e marca o último quadrado.
+        Depois da direita pra esquerda e pinta todos a partir do pintado
+        anteriormente, até completar o número. Depois contar da esquerda
+        pra direita a partir do primeiro quadrado pintado o número em
+        questão, e marcar X nos que sobrarem. Fazer a mesma coisa da
+        direita pra esquerda.
+        '''
 
 
 passo1()
-passo3()
-passo4()
-passo5()
+# passo3()
+# passo4()
+# passo5()
 
 
 def print_matrix():
