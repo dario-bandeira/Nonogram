@@ -1,3 +1,14 @@
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
 m = [["·" for x in range(16)] for y in range(16)]
 
 m[0][15] = [1, 2, 3]
@@ -141,7 +152,6 @@ def passo1():
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
             m[guia][coluna] = 0
             guia += 1
-
 
 
 def passo3():
@@ -323,23 +333,29 @@ def passo5():
                 comecar_por_aqui += 1
             else:
                 break
+
+        inicio_e_fim_de_cada_parte = [[comecar_por_aqui]]
+
         for coluna in range(comecar_por_aqui, 15):
             if m[linha][coluna] != "x":
                 medindo += 1
-            if m[linha][coluna] == "x" and m[linha][coluna + 1] != "x":
-                tamanho_de_cada_parte.append(medindo)
-                medindo = 0
+            if m[linha][coluna] == "x":
+                inicio_e_fim_de_cada_parte[-1].append(coluna-1)
+                if m[linha][coluna + 1] == "x":
+                    continue
+                if m[linha][coluna + 1] != "x":
+                    tamanho_de_cada_parte.append(medindo)
+                    medindo = 0
+                    inicio_e_fim_de_cada_parte.append([coluna + 1])
 
+        inicio_e_fim_de_cada_parte[-1].append(14)
+        # print("linha: ", linha, ", ", inicio_e_fim_de_cada_parte)
         tamanho_de_cada_parte.append(medindo)
 
+        # nº de barras = nº de espaços
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
             barras = m[linha][15]
             cabe_mais_de_um = False
-            indice_inicio_de_cada_parte = [0]
-            for i, x in enumerate(tamanho_de_cada_parte[1:], 1):
-                indice_inicio_de_cada_parte.append(
-                    tamanho_de_cada_parte[i - 1] + indice_inicio_de_cada_parte[i - 1] + 1)
-            indice_inicio_de_cada_parte.append(15)
 
             for i, tamanho in enumerate(tamanho_de_cada_parte):
                 if len(tamanho_de_cada_parte) > 1:  # se tem mais de uma parte
@@ -354,23 +370,28 @@ def passo5():
                                 tamanho >= barras[i] + barras[i + 1] + 1):
                             cabe_mais_de_um = True
 
-                # if not cabe_mais_de_um:
+            if not cabe_mais_de_um:
+                for i, barra in enumerate(barras):
+                    for coluna in range(inicio_e_fim_de_cada_parte[i][0], inicio_e_fim_de_cada_parte[i][1] + 1):
+                        if coluna == barras[i] - 1:
+                            m[linha][coluna] = 0
+
+                    preencher_com = "·"
+                    for coluna in range(inicio_e_fim_de_cada_parte[i][1], inicio_e_fim_de_cada_parte[i][1] - barra, -1):
+                        if m[linha][coluna] == 0:
+                            preencher_com = 0
+                        m[linha][coluna] = preencher_com
+
 
         '''
-        SE o número em questão é maior que a metade do espaço:
-        Conta da esquerda pra direita e marca o último quadrado.
-        Depois da direita pra esquerda e pinta todos a partir do pintado
-        anteriormente, até completar o número. Depois contar da esquerda
-        pra direita a partir do primeiro quadrado pintado o número em
-        questão, e marcar X nos que sobrarem. Fazer a mesma coisa da
-        direita pra esquerda.
+        as barras estão ok. falta preencher o resto com X
         '''
 
 
 passo1()
-# passo3()
-# passo4()
-# passo5()
+passo3()
+passo4()
+passo5()
 
 
 def print_matrix():
@@ -398,4 +419,17 @@ def print_matrix():
             print('{: <2}'.format(" "), end='')
 
 
+def print_matrix_color():
+    for x in m:
+        for y in x:
+            if y == 0:
+                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
+            elif y == "x":
+                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+            else:
+                print(y, "", end='')
+        print()
+
+
 print_matrix()
+# print_matrix_color()
