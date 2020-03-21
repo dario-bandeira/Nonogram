@@ -372,6 +372,19 @@ def passo5():
 
             if not cabe_mais_de_um:
                 for i, barra in enumerate(barras):
+
+                    #esquerda pra direita
+                    # se a primeira é zero:
+                        # preenche o número em questão com zero e o resto é X
+                    #senão:
+                        # conta o número em questão e marca o último.
+
+                        # da direita pra esquerda
+                        # se a primeira é zero:
+                            # preenche o número em questão com zero e o resto é X.
+                        # senão:
+                        # conta o número em questão e marca zero a partir do zero
+
                     # esquerda pra direita
                     for j, coluna in enumerate(range(inicio_e_fim_de_cada_parte[i][0], inicio_e_fim_de_cada_parte[i][1] + 1)):
                         if coluna == barras[i] - 1:
