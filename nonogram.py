@@ -314,8 +314,8 @@ def passo5():
     Depois da direita pra esquerda e pinta todos a partir do pintado
     anteriormente, até completar o número. Depois contar da esquerda
     pra direita a partir do primeiro quadrado pintado o número em
-    questão, e marcar X nos que sobrarem. Fazer a mesma coisa da
-    direita pra esquerda.
+    questão. Fazer a mesma coisa da direita pra esquerda. Se a
+    barra estiver completa, marcar os espaços livres com X.
     '''
 
     # m[0][0] = "x"
@@ -340,7 +340,7 @@ def passo5():
             if m[linha][coluna] != "x":
                 medindo += 1
             if m[linha][coluna] == "x":
-                inicio_e_fim_de_cada_parte[-1].append(coluna-1)
+                inicio_e_fim_de_cada_parte[-1].append(coluna - 1)
                 if m[linha][coluna + 1] == "x":
                     continue
                 if m[linha][coluna + 1] != "x":
@@ -372,19 +372,23 @@ def passo5():
 
             if not cabe_mais_de_um:
                 for i, barra in enumerate(barras):
-                    for coluna in range(inicio_e_fim_de_cada_parte[i][0], inicio_e_fim_de_cada_parte[i][1] + 1):
+                    # esquerda pra direita
+                    for j, coluna in enumerate(range(inicio_e_fim_de_cada_parte[i][0], inicio_e_fim_de_cada_parte[i][1] + 1)):
                         if coluna == barras[i] - 1:
                             m[linha][coluna] = 0
 
+                    # direita pra esquerda
                     preencher_com = "·"
                     for coluna in range(inicio_e_fim_de_cada_parte[i][1], inicio_e_fim_de_cada_parte[i][1] - barra, -1):
                         if m[linha][coluna] == 0:
                             preencher_com = 0
                         m[linha][coluna] = preencher_com
 
-
         '''
-        as barras estão ok. falta preencher o resto com X
+        Depois contar da esquerda
+        pra direita a partir do primeiro quadrado pintado o número em
+        questão. Fazer a mesma coisa da direita pra esquerda. Se a
+        barra estiver completa, marcar os espaços livres com X.
         '''
 
 
@@ -431,5 +435,5 @@ def print_matrix_color():
         print()
 
 
-print_matrix()
-# print_matrix_color()
+# print_matrix()
+print_matrix_color()
