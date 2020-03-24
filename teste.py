@@ -1,7 +1,4 @@
-a = [[0]]
-
-a[-1].append(1)
-a.append([4])
-a[-1].append(5)
-
-print(a)
+a = [1,2,3,4]
+a.reverse()
+for x in a:
+    print(x)

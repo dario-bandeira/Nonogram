@@ -43,26 +43,60 @@ m[15][12] = [8, 5]
 m[15][13] = [5, 4]
 m[15][14] = [1, 4]
 
-linhas_que_tem_maior_igual_8 = []
-for i, x in enumerate(m[:15]):
-    if max(x[15]) >= 8:
-        linhas_que_tem_maior_igual_8.append(i)
 
-colunas_que_tem_maior_igual_8 = []
-for coluna in range(15):
-    if max(m[15][coluna]) >= 8:
-        colunas_que_tem_maior_igual_8.append(coluna)
+def girar_horario(A):
+    A.reverse()
+    N = len(A[0])
+    for i in range(N // 2):
+        for j in range(i, N - i - 1):
+            temp = A[i][j]
+            A[i][j] = A[N - 1 - j][i]
+            A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
+            A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
+            A[j][N - 1 - i] = temp
 
 
-# def girar90horario(A):
-#     N = len(A[0])
-#     for i in range(N // 2):
-#         for j in range(i, N - i - 1):
-#             temp = A[i][j]
-#             A[i][j] = A[N - 1 - j][i]
-#             A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
-#             A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
-#             A[j][N - 1 - i] = temp
+def girar_antihorario(m):
+    m = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]) - 1, -1, -1)]
+    m.reverse()
+    return m
+
+
+def print_matrix():
+    for i, x in enumerate(m[:15]):
+        print('{: <2} '.format(i), end='')
+        print(*x)
+    print("   ", end='')
+
+    for x in m[15]:
+        print('{: <2}'.format(x[0]), end='')
+    print()
+    print("   ", end='')
+
+    for x in m[15]:
+        if len(x) >= 2:
+            print('{: <2}'.format(x[1]), end='')
+        else:
+            print('{: <2}'.format(" "), end='')
+    print()
+    print("   ", end='')
+    for x in m[15]:
+        if len(x) >= 3:
+            print('{: <2}'.format(x[2]), end='')
+        else:
+            print('{: <2}'.format(" "), end='')
+
+
+def print_matrix_color():
+    for x in m:
+        for y in x:
+            if y == 0:
+                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
+            elif y == "x":
+                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+            else:
+                print(y, "", end='')
+        print()
 
 
 def passo1():
@@ -73,7 +107,11 @@ def passo1():
     da barra, considerando os espaços.
     '''
 
-    # linhas
+    linhas_que_tem_maior_igual_8 = []
+    for i, x in enumerate(m[:15]):
+        if max(x[15]) >= 8:
+            linhas_que_tem_maior_igual_8.append(i)
+
     for linha in linhas_que_tem_maior_igual_8:
 
         quantas_barras_tem_na_linha = len(m[linha][15])
@@ -111,46 +149,6 @@ def passo1():
         guia = 7
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
             m[linha][guia] = 0
-            guia += 1
-
-    # colunas
-    for coluna in colunas_que_tem_maior_igual_8:
-
-        quantas_barras_tem_na_linha = len(m[15][coluna])
-        indice_do_maior = m[15][coluna].index(max(m[15][coluna]))
-        tamanho_da_barra = ((max(m[15][coluna]) - 7) * 2) - 1
-
-        marcar_x_depois = 0
-        marcar_x_antes = 0
-        espacos_antes = 0
-        espacos_depois = 0
-
-        if quantas_barras_tem_na_linha > 1:  # tem mais de 1 número
-
-            if indice_do_maior < quantas_barras_tem_na_linha - 1:  # tem barra depois do maior
-
-                espacos_depois = (quantas_barras_tem_na_linha - (indice_do_maior + 1))
-
-                for n_barra in m[15][coluna][indice_do_maior + 1:]:
-                    marcar_x_depois += n_barra
-                marcar_x_depois += espacos_depois
-
-            if indice_do_maior != 0:  # tem barra antes do maior
-
-                espacos_antes = indice_do_maior
-
-                for n_barra in m[15][coluna][:indice_do_maior]:
-                    #                      [0:-1]
-                    marcar_x_antes += n_barra
-                marcar_x_antes += espacos_antes
-
-        guia = 7
-        for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
-            m[guia][coluna] = 0
-            guia -= 1
-        guia = 7
-        for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
-            m[guia][coluna] = 0
             guia += 1
 
 
@@ -202,43 +200,43 @@ def passo3():
         if barra_cheia:
             linha[ultima_casa_da_linha - 1] = "x"
 
-    # pra baixo
-    for coluna in range(15):
-        for linha in range(15):
-            barra_cheia = False
-            if m[0][coluna] == 0:
-                barra_cheia = True
-
-            preencher_com = "·"
-            ultima_casa_da_linha = 0
-            tamanho_da_barra = m[15][coluna][0]
-            for y in range(tamanho_da_barra):
-                if m[y][coluna] == 0:
-                    preencher_com = 0
-                m[y][coluna] = preencher_com
-                ultima_casa_da_linha = y
-
-            if barra_cheia:
-                m[ultima_casa_da_linha + 1][coluna] = "x"
-
-    # pra cima
-    for coluna in range(15):
-        for linha in range(15):
-            barra_cheia = False
-            if m[14][coluna] == 0:
-                barra_cheia = True
-
-            preencher_com = "·"
-            ultima_casa_da_linha = 0
-            tamanho_da_barra = m[15][coluna][-1]
-            for y in range(14, 15 - tamanho_da_barra - 1, -1):
-                if m[y][coluna] == 0:
-                    preencher_com = 0
-                m[y][coluna] = preencher_com
-                ultima_casa_da_linha = y
-
-            if barra_cheia:
-                m[ultima_casa_da_linha - 1][coluna] = "x"
+    # # pra baixo
+    # for coluna in range(15):
+    #     for linha in range(15):
+    #         barra_cheia = False
+    #         if m[0][coluna] == 0:
+    #             barra_cheia = True
+    #
+    #         preencher_com = "·"
+    #         ultima_casa_da_linha = 0
+    #         tamanho_da_barra = m[15][coluna][0]
+    #         for y in range(tamanho_da_barra):
+    #             if m[y][coluna] == 0:
+    #                 preencher_com = 0
+    #             m[y][coluna] = preencher_com
+    #             ultima_casa_da_linha = y
+    #
+    #         if barra_cheia:
+    #             m[ultima_casa_da_linha + 1][coluna] = "x"
+    #
+    # # pra cima
+    # for coluna in range(15):
+    #     for linha in range(15):
+    #         barra_cheia = False
+    #         if m[14][coluna] == 0:
+    #             barra_cheia = True
+    #
+    #         preencher_com = "·"
+    #         ultima_casa_da_linha = 0
+    #         tamanho_da_barra = m[15][coluna][-1]
+    #         for y in range(14, 15 - tamanho_da_barra - 1, -1):
+    #             if m[y][coluna] == 0:
+    #                 preencher_com = 0
+    #             m[y][coluna] = preencher_com
+    #             ultima_casa_da_linha = y
+    #
+    #         if barra_cheia:
+    #             m[ultima_casa_da_linha - 1][coluna] = "x"
 
 
 def passo4():
@@ -274,31 +272,31 @@ def passo4():
             for voltando in range(coluna, 15):
                 m[linha][voltando] = "x"
 
-    # pra baixo
-    for coluna in range(15):
-        tamanho_do_primeiro_espaco = 0
-        for linha in range(15):
-            if m[linha][coluna] != "x":
-                tamanho_do_primeiro_espaco += 1
-            else:
-                break
-
-        if tamanho_do_primeiro_espaco < m[15][coluna][0]:
-            for voltando in range(linha, -1, -1):
-                m[voltando][coluna] = "x"
-
-    # pra cima
-    for coluna in range(15):
-        tamanho_do_ultimo_espaco = 0
-        for linha in range(14, -1, -1):
-            if m[linha][coluna] != "x":
-                tamanho_do_ultimo_espaco += 1
-            else:
-                break
-
-        if tamanho_do_ultimo_espaco < m[15][coluna][-1]:
-            for voltando in range(linha, 15):
-                m[voltando][coluna] = "x"
+    # # pra baixo
+    # for coluna in range(15):
+    #     tamanho_do_primeiro_espaco = 0
+    #     for linha in range(15):
+    #         if m[linha][coluna] != "x":
+    #             tamanho_do_primeiro_espaco += 1
+    #         else:
+    #             break
+    #
+    #     if tamanho_do_primeiro_espaco < m[15][coluna][0]:
+    #         for voltando in range(linha, -1, -1):
+    #             m[voltando][coluna] = "x"
+    #
+    # # pra cima
+    # for coluna in range(15):
+    #     tamanho_do_ultimo_espaco = 0
+    #     for linha in range(14, -1, -1):
+    #         if m[linha][coluna] != "x":
+    #             tamanho_do_ultimo_espaco += 1
+    #         else:
+    #             break
+    #
+    #     if tamanho_do_ultimo_espaco < m[15][coluna][-1]:
+    #         for voltando in range(linha, 15):
+    #             m[voltando][coluna] = "x"
 
 
 def passo5():
@@ -318,12 +316,6 @@ def passo5():
     barra estiver completa, marcar os espaços livres com X.
     '''
 
-    # m[0][0] = "x"
-    # m[1][0] = "x"
-    # m[1][1] = "x"
-    # m[2][1] = "x"
-    # m[2][2] = "x"
-    # m[2][3] = "x"
     for linha in range(15):
         comecar_por_aqui = 0
         tamanho_de_cada_parte = []
@@ -336,6 +328,7 @@ def passo5():
 
         inicio_e_fim_de_cada_parte = [[comecar_por_aqui]]
 
+        # definindo a coluna inicial e final de cada espaço na linha
         for coluna in range(comecar_por_aqui, 15):
             if m[linha][coluna] != "x":
                 medindo += 1
@@ -349,7 +342,6 @@ def passo5():
                     inicio_e_fim_de_cada_parte.append([coluna + 1])
 
         inicio_e_fim_de_cada_parte[-1].append(14)
-        # print("linha: ", linha, ", ", inicio_e_fim_de_cada_parte)
         tamanho_de_cada_parte.append(medindo)
 
         # nº de barras = nº de espaços
@@ -371,82 +363,81 @@ def passo5():
                             cabe_mais_de_um = True
 
             if not cabe_mais_de_um:
-                for i, barra in enumerate(barras):
+                # esquerda pra direita
+                ###########
+                if linha == 11:
+                    print("lin:", linha)
+                    print("ini:", inicio_e_fim_de_cada_parte)
+                    # print("tam:", tamanho_de_cada_parte)
+                    print("bar:", barras)
+                    print()
+                ###########
 
-                    #esquerda pra direita
-                    # se a primeira é zero:
-                        # preenche o número em questão com zero e o resto é X
-                    #senão:
-                        # conta o número em questão e marca o último.
+                for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
+                    # a barra tem que ter no mínimo metade do espaço
+                    if not barras[i] > (espaco[1] - espaco[0] + 1) // 2:
+                        continue
 
-                        # da direita pra esquerda
-                        # se a primeira é zero:
-                            # preenche o número em questão com zero e o resto é X.
-                        # senão:
-                        # conta o número em questão e marca zero a partir do zero
+                    # se a primeira casa for zero:
+                    # preenche a barra, o resto do espaço é "x"
+                    if m[linha][espaco[0]] == 0:
+                        barra_aux = barras[i]
+                        for coluna in range(espaco[0], espaco[1] + 1):
+                            if barra_aux:
+                                m[linha][coluna] = 0
+                                barra_aux -= 1
+                            else:
+                                m[linha][coluna] = "x"
+                    else:
+                        barra_aux = barras[i]
+                        for coluna in range(espaco[0], espaco[1] + 1):
+                            if barra_aux:
+                                barra_aux -= 1
+                                if not barra_aux:
+                                    m[linha][coluna] = 0
+                                    break
 
-                    # esquerda pra direita
-                    for j, coluna in enumerate(range(inicio_e_fim_de_cada_parte[i][0], inicio_e_fim_de_cada_parte[i][1] + 1)):
-                        if coluna == barras[i] - 1:
-                            m[linha][coluna] = 0
-
-                    # direita pra esquerda
-                    preencher_com = "·"
-                    for coluna in range(inicio_e_fim_de_cada_parte[i][1], inicio_e_fim_de_cada_parte[i][1] - barra, -1):
-                        if m[linha][coluna] == 0:
-                            preencher_com = 0
-                        m[linha][coluna] = preencher_com
-
-        '''
-        Depois contar da esquerda
-        pra direita a partir do primeiro quadrado pintado o número em
-        questão. Fazer a mesma coisa da direita pra esquerda. Se a
-        barra estiver completa, marcar os espaços livres com X.
-        '''
+                        # direita pra esquerda
+                        # se a primeira casa for zero:
+                        # preenche a barra, o resto do espaço é "x"
+                        if m[linha][espaco[1]] == 0:
+                            barra_aux = barras[i]
+                            for coluna in range(espaco[1], espaco[0] - 1, -1):
+                                if barra_aux:
+                                    m[linha][coluna] = 0
+                                    barra_aux -= 1
+                                else:
+                                    m[linha][coluna] = "x"
+                        else:
+                            barra_aux = barras[i]
+                            for coluna in range(espaco[1], espaco[0] - 1, -1):
+                                if barra_aux:
+                                    barra_aux -= 1
+                                    if not barra_aux:
+                                        m[linha][coluna] = 0
+                                        break
 
 
 passo1()
+m = girar_antihorario(m)
+passo1()
+girar_horario(m)
+
 passo3()
+m = girar_antihorario(m)
+passo3()
+girar_horario(m)
+
 passo4()
+m = girar_antihorario(m)
+passo4()
+girar_horario(m)
+
+print_matrix()
 passo5()
 
-
-def print_matrix():
-    for i, x in enumerate(m[:15]):
-        print('{: <2} '.format(i), end='')
-        print(*x)
-    print("   ", end='')
-
-    for x in m[15]:
-        print('{: <2}'.format(x[0]), end='')
-    print()
-    print("   ", end='')
-
-    for x in m[15]:
-        if len(x) >= 2:
-            print('{: <2}'.format(x[1]), end='')
-        else:
-            print('{: <2}'.format(" "), end='')
-    print()
-    print("   ", end='')
-    for x in m[15]:
-        if len(x) >= 3:
-            print('{: <2}'.format(x[2]), end='')
-        else:
-            print('{: <2}'.format(" "), end='')
-
-
-def print_matrix_color():
-    for x in m:
-        for y in x:
-            if y == 0:
-                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
-            elif y == "x":
-                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
-            else:
-                print(y, "", end='')
-        print()
-
-
-# print_matrix()
-print_matrix_color()
+print_matrix()
+# passo1()
+# passo3()
+# passo4()
+# passo5()
