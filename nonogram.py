@@ -173,7 +173,7 @@ def passo1():
 
 def passo2():
     for linha in range(15):
-        # se a última barra é a maior:
+        # se a última barra da linha é a maior:
         if m[linha][15][-1] == max(m[linha][15]):
             em_aberto = False
             tamanho_da_ultima_barra = 0
@@ -185,11 +185,11 @@ def passo2():
                     c = coluna
                     tamanho_da_ultima_barra = t - c
                     break
+            # se essa é realmente a última barra
             if m[linha][15][-1] == tamanho_da_ultima_barra:
-                print("linha ", linha)
-                # última casa da linha não é zero:
+                # se a última casa da linha não é zero:
                 if m[linha][14] != 0:
-                    for coluna in range(14,-1,-1):
+                    for coluna in range(14, -1, -1):
                         if m[linha][coluna] != 0:
                             m[linha][coluna] = "x"
                         else:
@@ -245,44 +245,6 @@ def passo3():
         if barra_cheia:
             linha[ultima_casa_da_linha - 1] = "x"
 
-    # # pra baixo
-    # for coluna in range(15):
-    #     for linha in range(15):
-    #         barra_cheia = False
-    #         if m[0][coluna] == 0:
-    #             barra_cheia = True
-    #
-    #         preencher_com = "·"
-    #         ultima_casa_da_linha = 0
-    #         tamanho_da_barra = m[15][coluna][0]
-    #         for y in range(tamanho_da_barra):
-    #             if m[y][coluna] == 0:
-    #                 preencher_com = 0
-    #             m[y][coluna] = preencher_com
-    #             ultima_casa_da_linha = y
-    #
-    #         if barra_cheia:
-    #             m[ultima_casa_da_linha + 1][coluna] = "x"
-    #
-    # # pra cima
-    # for coluna in range(15):
-    #     for linha in range(15):
-    #         barra_cheia = False
-    #         if m[14][coluna] == 0:
-    #             barra_cheia = True
-    #
-    #         preencher_com = "·"
-    #         ultima_casa_da_linha = 0
-    #         tamanho_da_barra = m[15][coluna][-1]
-    #         for y in range(14, 15 - tamanho_da_barra - 1, -1):
-    #             if m[y][coluna] == 0:
-    #                 preencher_com = 0
-    #             m[y][coluna] = preencher_com
-    #             ultima_casa_da_linha = y
-    #
-    #         if barra_cheia:
-    #             m[ultima_casa_da_linha - 1][coluna] = "x"
-
 
 def passo4():
     '''
@@ -316,32 +278,6 @@ def passo4():
         if tamanho_do_ultimo_espaco < m[linha][15][-1]:
             for voltando in range(coluna, 15):
                 m[linha][voltando] = "x"
-
-    # # pra baixo
-    # for coluna in range(15):
-    #     tamanho_do_primeiro_espaco = 0
-    #     for linha in range(15):
-    #         if m[linha][coluna] != "x":
-    #             tamanho_do_primeiro_espaco += 1
-    #         else:
-    #             break
-    #
-    #     if tamanho_do_primeiro_espaco < m[15][coluna][0]:
-    #         for voltando in range(linha, -1, -1):
-    #             m[voltando][coluna] = "x"
-    #
-    # # pra cima
-    # for coluna in range(15):
-    #     tamanho_do_ultimo_espaco = 0
-    #     for linha in range(14, -1, -1):
-    #         if m[linha][coluna] != "x":
-    #             tamanho_do_ultimo_espaco += 1
-    #         else:
-    #             break
-    #
-    #     if tamanho_do_ultimo_espaco < m[15][coluna][-1]:
-    #         for voltando in range(linha, 15):
-    #             m[voltando][coluna] = "x"
 
 
 def passo5():
@@ -490,7 +426,7 @@ def passo7():
                 em_aberto = True
             if m[linha][coluna] != 0 and em_aberto:
                 t = coluna
-                barras.append(t-c)
+                barras.append(t - c)
                 em_aberto = False
         if em_aberto:
             barras.append(15 - c)
@@ -501,5 +437,7 @@ def passo7():
                     m[linha][coluna] = "x"
 
 
+executar_passos()
+print_matrix()
 executar_passos()
 print_matrix()
