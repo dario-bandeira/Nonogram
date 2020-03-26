@@ -62,6 +62,22 @@ def girar_antihorario(m):
     return m
 
 
+def executar_passos():
+    global m
+    passos = {
+        passo1: '',
+        passo3: '',
+        passo4: '',
+        passo5: '',
+        passo6: '',
+    }
+    for key, val in passos.items():
+        key()
+        m = girar_antihorario(m)
+        key()
+        girar_horario(m)
+
+
 def print_matrix():
     for i, x in enumerate(m[:15]):
         print('{: <2} '.format(i), end='')
@@ -85,6 +101,7 @@ def print_matrix():
             print('{: <2}'.format(x[2]), end='')
         else:
             print('{: <2}'.format(" "), end='')
+    print()
 
 
 def print_matrix_color():
@@ -364,15 +381,6 @@ def passo5():
 
             if not cabe_mais_de_um:
                 # esquerda pra direita
-                ###########
-                if linha == 11:
-                    print("lin:", linha)
-                    print("ini:", inicio_e_fim_de_cada_parte)
-                    # print("tam:", tamanho_de_cada_parte)
-                    print("bar:", barras)
-                    print()
-                ###########
-
                 for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
                     # a barra tem que ter no mínimo metade do espaço
                     if not barras[i] > (espaco[1] - espaco[0] + 1) // 2:
@@ -418,26 +426,27 @@ def passo5():
                                         break
 
 
-passo1()
-m = girar_antihorario(m)
-passo1()
-girar_horario(m)
+def passo6():
+    '''
+    Nas linhas que tiverem uma barra só, se tiver mais de uma,
+    emendar.
+    '''
 
-passo3()
-m = girar_antihorario(m)
-passo3()
-girar_horario(m)
+    for linha in range(15):
+        if len(m[linha][15]) == 1:
+            for coluna in range(15):
+                if m[linha][coluna] == 0:
+                    comecar_por_aqui = coluna
+                    break
 
-passo4()
-m = girar_antihorario(m)
-passo4()
-girar_horario(m)
+            for coluna in range(14, -1, -1):
+                if m[linha][coluna] == 0:
+                    ir_ate_aqui = coluna
+                    break
 
+            for coluna in range(comecar_por_aqui, ir_ate_aqui):
+                m[linha][coluna] = 0
+
+
+executar_passos()
 print_matrix()
-passo5()
-
-print_matrix()
-# passo1()
-# passo3()
-# passo4()
-# passo5()
