@@ -66,10 +66,12 @@ def executar_passos():
     global m
     passos = {
         passo1: '',
+        passo2: '',
         passo3: '',
         passo4: '',
         passo5: '',
         passo6: '',
+        passo7: '',
     }
     for key, val in passos.items():
         key()
@@ -167,6 +169,32 @@ def passo1():
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
             m[linha][guia] = 0
             guia += 1
+
+
+def passo2():
+    for linha in range(15):
+        # se a última barra é a maior:
+        if m[linha][15][-1] == max(m[linha][15]):
+            em_aberto = False
+            tamanho_da_ultima_barra = 0
+            for coluna in range(14, -1, -1):
+                if m[linha][coluna] == 0 and not em_aberto:
+                    t = coluna
+                    em_aberto = True
+                if m[linha][coluna] != 0 and em_aberto:
+                    c = coluna
+                    tamanho_da_ultima_barra = t - c
+                    break
+            if m[linha][15][-1] == tamanho_da_ultima_barra:
+                print("linha ", linha)
+                # última casa da linha não é zero:
+                if m[linha][14] != 0:
+                    for coluna in range(14,-1,-1):
+                        if m[linha][coluna] != 0:
+                            m[linha][coluna] = "x"
+                        else:
+                            break
+                m[linha][c] = "x"
 
 
 def passo3():
@@ -446,6 +474,31 @@ def passo6():
 
             for coluna in range(comecar_por_aqui, ir_ate_aqui):
                 m[linha][coluna] = 0
+
+
+def passo7():
+    '''
+    Conferir as linhas que já estão completas e marcar X nos espaços
+    em branco.
+    '''
+    for linha in range(15):
+        barras = []
+        em_aberto = False
+        for coluna in range(15):
+            if m[linha][coluna] == 0 and not em_aberto:
+                c = coluna
+                em_aberto = True
+            if m[linha][coluna] != 0 and em_aberto:
+                t = coluna
+                barras.append(t-c)
+                em_aberto = False
+        if em_aberto:
+            barras.append(15 - c)
+
+        if barras == m[linha][15]:
+            for coluna in range(15):
+                if m[linha][coluna] != 0:
+                    m[linha][coluna] = "x"
 
 
 executar_passos()

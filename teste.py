@@ -1,2 +1,5 @@
-for coluna in range(14, -1, -1):
-    print(coluna)
+for x in range(10):
+    if x == 3:
+        a = "aee"
+
+print(a)
