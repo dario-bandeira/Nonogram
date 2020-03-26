@@ -177,6 +177,7 @@ def passo2():
         if m[linha][15][-1] == max(m[linha][15]):
             em_aberto = False
             tamanho_da_ultima_barra = 0
+            # definindo início e fim da barra
             for coluna in range(14, -1, -1):
                 if m[linha][coluna] == 0 and not em_aberto:
                     t = coluna
@@ -211,39 +212,49 @@ def passo3():
     desde o começo da linha.
     '''
     # pra direita
-    for linha in m[:15]:
+    #################
+    for linha in range(15):
         barra_cheia = False
-        if linha[0] == 0:
+        if m[linha][0] == 0:
             barra_cheia = True
 
-        preencher_com = "·"
+        preencher_com = ""
         ultima_casa_da_linha = 0
-        tamanho_da_barra = linha[15][0]
-        for y in range(tamanho_da_barra):
-            if linha[y] == 0:
+        tamanho_da_barra = m[linha][15][0]
+        em_aberto = False
+        for coluna in range(tamanho_da_barra):
+            if m[linha][coluna] == 0 and not em_aberto:
                 preencher_com = 0
-            linha[y] = preencher_com
-            ultima_casa_da_linha = y
-
-        if barra_cheia: linha[ultima_casa_da_linha + 1] = "x"
-
-    # pra esquerda
-    for linha in m[:15]:
-        barra_cheia = False
-        if linha[14] == 0:
-            barra_cheia = True
-
-        preencher_com = "·"
-        ultima_casa_da_linha = 0
-        tamanho_da_barra = linha[15][-1]
-        for y in range(14, 15 - tamanho_da_barra - 1, -1):
-            if linha[y] == 0:
-                preencher_com = 0
-            linha[y] = preencher_com
-            ultima_casa_da_linha = y
+                em_aberto = True
+            if m[linha][coluna] != 0 and not em_aberto:
+                preencher_com = m[linha][coluna]
+            m[linha][coluna] = preencher_com
+            ultima_casa_da_linha = coluna
 
         if barra_cheia:
-            linha[ultima_casa_da_linha - 1] = "x"
+            m[linha][ultima_casa_da_linha + 1] = "x"
+
+    # pra esquerda
+    for linha in range(15):
+        barra_cheia = False
+        if m[linha][14] == 0:
+            barra_cheia = True
+
+        preencher_com = ""
+        ultima_casa_da_linha = 0
+        tamanho_da_barra = m[linha][15][-1]
+        em_aberto = False
+        for coluna in range(14, 15 - tamanho_da_barra - 1, -1):
+            if m[linha][coluna] == 0 and not em_aberto:
+                preencher_com = 0
+                em_aberto = True
+            if m[linha][coluna] != 0 and not em_aberto:
+                preencher_com = m[linha][coluna]
+            m[linha][coluna] = preencher_com
+            ultima_casa_da_linha = coluna
+
+        if barra_cheia:
+            m[linha][ultima_casa_da_linha - 1] = "x"
 
 
 def passo4():
@@ -438,6 +449,5 @@ def passo7():
 
 
 executar_passos()
-print_matrix()
 executar_passos()
 print_matrix()
