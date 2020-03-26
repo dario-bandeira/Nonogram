@@ -43,7 +43,27 @@ m[15][12] = [8, 5]
 m[15][13] = [5, 4]
 m[15][14] = [1, 4]
 
-girado = False
+matrix_correta = [
+    ["x", "x", "x", 0, "x", "x", "x", 0, 0, "x", "x", "x", 0, 0, 0],
+    ["x", "x", 0, 0, "x", "x", 0, 0, 0, 0, "x", 0, 0, 0, "x"],
+    ["x", "x", 0, 0, "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, "x"],
+    ["x", "x", 0, 0, 0, "x", 0, "x", 0, 0, 0, 0, 0, 0, "x"],
+    ["x", "x", 0, 0, 0, 0, 0, "x", "x", 0, 0, 0, 0, 0, "x"],
+
+    ["x", "x", 0, 0, 0, 0, "x", "x", "x", 0, 0, 0, 0, "x", "x"],
+    ["x", "x", "x", 0, 0, 0, "x", "x", "x", 0, 0, 0, 0, "x", "x"],
+    [0, "x", "x", 0, 0, 0, 0, "x", 0, 0, 0, 0, 0, "x", "x"],
+    [0, "x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", 0],
+    [0, 0, "x", "x", "x", 0, 0, 0, 0, 0, 0, "x", "x", "x", 0],
+
+    [0, 0, 0, "x", "x", "x", 0, 0, 0, 0, "x", "x", 0, 0, 0],
+    [0, 0, 0, 0, "x", "x", "x", 0, 0, "x", "x", 0, 0, 0, 0],
+    ["x", 0, 0, 0, 0, "x", "x", 0, 0, "x", 0, 0, 0, 0, "x"],
+    ["x", 0, 0, 0, 0, 0, "x", 0, 0, "x", 0, 0, 0, 0, "x"],
+    ["x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x"],
+]
+
+
 def girar_horario(A):
     A.reverse()
     N = len(A[0])
@@ -54,13 +74,11 @@ def girar_horario(A):
             A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
             A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
             A[j][N - 1 - i] = temp
-    girado = False
 
 
 def girar_antihorario(m):
     m = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]) - 1, -1, -1)]
     m.reverse()
-    girado = True
     return m
 
 
@@ -241,7 +259,12 @@ def passo3():
                 m[linha][coluna] = 0
 
         if barra_cheia and comecar_por_aqui + tamanho_da_barra + 1 < 15:
-            m[linha][comecar_por_aqui + tamanho_da_barra + 1] = "x"
+            m[linha][comecar_por_aqui + tamanho_da_barra] = "x"
+            if m[3][6] == "x":
+                print("lin ", linha)
+                print("com ", comecar_por_aqui)
+                print("tam ", tamanho_da_barra)
+                break
 
     # pra esquerda
     for linha in range(15):
@@ -264,7 +287,7 @@ def passo3():
             if m[linha][coluna] != 0 and em_aberto:
                 m[linha][coluna] = 0
 
-        if barra_cheia and comecar_por_aqui - tamanho_da_barra >= 0:
+        if barra_cheia and comecar_por_aqui - tamanho_da_barra > 0:
             m[linha][comecar_por_aqui - tamanho_da_barra] = "x"
 
 
@@ -460,5 +483,26 @@ def passo7():
                     m[linha][coluna] = "x"
 
 
+def comparar():
+    errado = False
+    for linha in range(15):
+        for coluna in range(15):
+            if m[linha][coluna] != "·" and m[linha][coluna] != matrix_correta[linha][coluna]:
+                print("errado linha ", linha, " coluna ", coluna)
+                errado = True
+    if errado:
+        return False
+    return True
+
+
 executar_passos()
-print_matrix()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+comparar()
+
+print_matrix_color()
