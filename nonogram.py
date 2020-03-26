@@ -43,7 +43,7 @@ m[15][12] = [8, 5]
 m[15][13] = [5, 4]
 m[15][14] = [1, 4]
 
-
+girado = False
 def girar_horario(A):
     A.reverse()
     N = len(A[0])
@@ -54,11 +54,13 @@ def girar_horario(A):
             A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
             A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
             A[j][N - 1 - i] = temp
+    girado = False
 
 
 def girar_antihorario(m):
     m = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]) - 1, -1, -1)]
     m.reverse()
+    girado = True
     return m
 
 
@@ -172,6 +174,11 @@ def passo1():
 
 
 def passo2():
+    '''
+    Ver se os números dos extremos são o maior e conferir se
+    a barra dele está completa. Se tiver, marcar o espaço restante
+    com X e conferir a próxima barra.
+    '''
     for linha in range(15):
         # se a última barra da linha é a maior:
         if m[linha][15][-1] == max(m[linha][15]):
@@ -200,61 +207,65 @@ def passo2():
 
 def passo3():
     '''
-    Ver se tem quadrado pintado encostado nas paredes.
-    A partir dele, desenhar os adjacentes e marcar o
+    Ver se tem 'zero' encostado nas paredes.
+    A partir dele, desenhar os seguintes e marcar o
     fim com um X.
     -ou-
-    Se o primeiro quadrado NÃO for pintado, ir contando
+    Se a primeira casa NÃO for zero, ir contando
     a partir da borda e quando encontrar um
-    quadrado pintado, pintar os seguintes até completar o
+    zero, pintar os seguintes até completar o
     número em questão, mas nesse caso não marca o
     fim com X. Lembrar de ignorar os X que aparecem
     desde o começo da linha.
     '''
     # pra direita
-    #################
     for linha in range(15):
+        comecar_por_aqui = 0
         barra_cheia = False
-        if m[linha][0] == 0:
-            barra_cheia = True
-
-        preencher_com = ""
-        ultima_casa_da_linha = 0
         tamanho_da_barra = m[linha][15][0]
         em_aberto = False
-        for coluna in range(tamanho_da_barra):
-            if m[linha][coluna] == 0 and not em_aberto:
-                preencher_com = 0
-                em_aberto = True
-            if m[linha][coluna] != 0 and not em_aberto:
-                preencher_com = m[linha][coluna]
-            m[linha][coluna] = preencher_com
-            ultima_casa_da_linha = coluna
 
-        if barra_cheia:
-            m[linha][ultima_casa_da_linha + 1] = "x"
+        # ignorando sequencia de x inicial, se houver
+        for coluna in range(15):
+            if m[linha][coluna] != "x":
+                comecar_por_aqui = coluna
+                break
+
+        if m[linha][comecar_por_aqui] == 0:
+            barra_cheia = True
+
+        for coluna in range(comecar_por_aqui, comecar_por_aqui + tamanho_da_barra):
+            if m[linha][coluna] == 0 and not em_aberto:
+                em_aberto = True
+            if m[linha][coluna] != 0 and em_aberto:
+                m[linha][coluna] = 0
+
+        if barra_cheia and comecar_por_aqui + tamanho_da_barra + 1 < 15:
+            m[linha][comecar_por_aqui + tamanho_da_barra + 1] = "x"
 
     # pra esquerda
     for linha in range(15):
+        comecar_por_aqui = 0
         barra_cheia = False
-        if m[linha][14] == 0:
-            barra_cheia = True
-
-        preencher_com = ""
-        ultima_casa_da_linha = 0
         tamanho_da_barra = m[linha][15][-1]
         em_aberto = False
-        for coluna in range(14, 15 - tamanho_da_barra - 1, -1):
-            if m[linha][coluna] == 0 and not em_aberto:
-                preencher_com = 0
-                em_aberto = True
-            if m[linha][coluna] != 0 and not em_aberto:
-                preencher_com = m[linha][coluna]
-            m[linha][coluna] = preencher_com
-            ultima_casa_da_linha = coluna
+        # ignorando sequencia de x inicial, se houver
+        for coluna in range(14, -1, -1):
+            if m[linha][coluna] != "x":
+                comecar_por_aqui = coluna
+                break
 
-        if barra_cheia:
-            m[linha][ultima_casa_da_linha - 1] = "x"
+        if m[linha][comecar_por_aqui] == 0:
+            barra_cheia = True
+
+        for coluna in range(comecar_por_aqui, comecar_por_aqui - tamanho_da_barra, -1):
+            if m[linha][coluna] == 0 and not em_aberto:
+                em_aberto = True
+            if m[linha][coluna] != 0 and em_aberto:
+                m[linha][coluna] = 0
+
+        if barra_cheia and comecar_por_aqui - tamanho_da_barra >= 0:
+            m[linha][comecar_por_aqui - tamanho_da_barra] = "x"
 
 
 def passo4():
@@ -272,7 +283,6 @@ def passo4():
                 tamanho_do_primeiro_espaco += 1
             else:
                 break
-
         if tamanho_do_primeiro_espaco < m[linha][15][0]:
             for voltando in range(coluna, -1, -1):
                 m[linha][voltando] = "x"
@@ -408,6 +418,8 @@ def passo6():
     '''
 
     for linha in range(15):
+        comecar_por_aqui = 0
+        ir_ate_aqui = 0
         if len(m[linha][15]) == 1:
             for coluna in range(15):
                 if m[linha][coluna] == 0:
@@ -448,6 +460,5 @@ def passo7():
                     m[linha][coluna] = "x"
 
 
-executar_passos()
 executar_passos()
 print_matrix()

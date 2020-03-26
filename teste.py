@@ -1,5 +1,5 @@
-for x in range(10):
-    if x == 3:
-        a = "aee"
+for x in range(15):
+    if x == 5:
+        break
 
-print(a)
+print(x)
