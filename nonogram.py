@@ -93,7 +93,7 @@ def executar_passos():
     passos = {
         passo1: '',
         passo2: '',
-        # passo3: '',
+        passo3: '',
         # passo4: '',
         # passo5: '',
         # passo6: '',
@@ -244,7 +244,7 @@ def passo2(debug=False):
                     print_matrix(linha, c)
 
 
-def passo3():
+def passo3(debug=False):
     '''
     Ver se tem 'zero' encostado nas paredes.
     A partir dele, desenhar os seguintes e marcar o
@@ -278,9 +278,13 @@ def passo3():
                 em_aberto = True
             if m[linha][coluna] != 0 and em_aberto:
                 m[linha][coluna] = 0
+                if debug:
+                    print_matrix(linha, coluna)
 
         if barra_cheia and comecar_por_aqui + tamanho_da_barra + 1 < 15:
             m[linha][comecar_por_aqui + tamanho_da_barra] = "x"
+            if debug:
+                print_matrix(linha, comecar_por_aqui + tamanho_da_barra)
 
     # pra esquerda
     for linha in range(15):
@@ -307,13 +311,12 @@ def passo3():
             m[linha][comecar_por_aqui - tamanho_da_barra] = "x"
 
 
-def passo4():
+def passo4(debug=False):
     '''
     A partir da borda, conferir se a primeira barra
     cabe no primeiro espaço vazio. Se não couber,
     preencher o espaço com X.
     '''
-
     # pra direita
     for linha in range(15):
         tamanho_do_primeiro_espaco = 0
@@ -325,6 +328,8 @@ def passo4():
         if tamanho_do_primeiro_espaco < m[linha][15][0]:
             for voltando in range(coluna, -1, -1):
                 m[linha][voltando] = "x"
+                if debug:
+                    print_matrix(linha, voltando)
 
     # pra esquerda
     for linha in range(15):
@@ -338,6 +343,8 @@ def passo4():
         if tamanho_do_ultimo_espaco < m[linha][15][-1]:
             for voltando in range(coluna, 15):
                 m[linha][voltando] = "x"
+                if debug:
+                    print_matrix(linha, voltando)
 
 
 def passo5():
@@ -501,5 +508,5 @@ def passo7():
 
 # executar_passos()
 executar_passos()
-passo3(True)
+passo4(True)
 # print_matrix()
