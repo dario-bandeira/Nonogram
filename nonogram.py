@@ -106,16 +106,19 @@ def executar_passos():
         girar_horario(m)
 
 
-def print_matrix():
-    for i, x in enumerate(m[:15]):
-        print('{: <2} '.format(i), end='')
-        for y in x:
-            if y == 0:
-                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
-            elif y == "x":
-                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+def print_matrix(ll, cc):
+    for i_x, x in enumerate(m[:15]):
+        print('{: <2} '.format(i_x), end='')
+        for i_y, y in enumerate(x):
+            if i_x == ll and i_y == cc:
+                print(bcolors.WARNING + str(y) + bcolors.ENDC, "", end='')
             else:
-                print(y, "", end='')
+                if y == 0:
+                    print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
+                elif y == "x":
+                    print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+                else:
+                    print(y, "", end='')
         print()
     print("   ", end='')
 
@@ -228,9 +231,11 @@ def passo2():
                     for coluna in range(14, -1, -1):
                         if m[linha][coluna] != 0:
                             m[linha][coluna] = "x"
+                            print_matrix(linha, coluna)
                         else:
                             break
                 m[linha][c] = "x"
+                print_matrix(linha, c)
 
 
 def passo3():
@@ -490,4 +495,3 @@ def passo7():
 
 executar_passos()
 # print_matrix()
-print_matrix_color()
