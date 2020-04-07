@@ -63,22 +63,28 @@ matrix_correta = [
     ["x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x"],
 ]
 
+girado = False
 
-def girar_horario(A):
-    A.reverse()
-    N = len(A[0])
+
+def girar_horario(a):
+    global girado
+    a.reverse()
+    N = len(a[0])
     for i in range(N // 2):
         for j in range(i, N - i - 1):
-            temp = A[i][j]
-            A[i][j] = A[N - 1 - j][i]
-            A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
-            A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
-            A[j][N - 1 - i] = temp
+            temp = a[i][j]
+            a[i][j] = a[N - 1 - j][i]
+            a[N - 1 - j][i] = a[N - 1 - i][N - 1 - j]
+            a[N - 1 - i][N - 1 - j] = a[j][N - 1 - i]
+            a[j][N - 1 - i] = temp
+    girado = False
 
 
 def girar_antihorario(m):
+    global girado
     m = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]) - 1, -1, -1)]
     m.reverse()
+    girado = True
     return m
 
 
@@ -88,10 +94,10 @@ def executar_passos():
         passo1: '',
         passo2: '',
         passo3: '',
-        passo4: '',
-        passo5: '',
-        passo6: '',
-        passo7: '',
+        # passo4: '',
+        # passo5: '',
+        # passo6: '',
+        # passo7: '',
     }
     for key, val in passos.items():
         key()
@@ -145,7 +151,6 @@ def passo1():
     Usar os números vizinhos pra preencher ao redor
     da barra, considerando os espaços.
     '''
-
     linhas_que_tem_maior_igual_8 = []
     for i, x in enumerate(m[:15]):
         if max(x[15]) >= 8:
@@ -163,21 +168,15 @@ def passo1():
         espacos_depois = 0
 
         if quantas_barras_tem_na_linha > 1:  # tem mais de 1 número
-
             if indice_do_maior < quantas_barras_tem_na_linha - 1:  # tem barra depois do maior
-
                 espacos_depois = (quantas_barras_tem_na_linha - (indice_do_maior + 1))
-
                 for n_barra in m[linha][15][indice_do_maior + 1:]:
                     marcar_x_depois += n_barra
                 marcar_x_depois += espacos_depois
 
             if indice_do_maior != 0:  # tem barra antes do maior
-
                 espacos_antes = indice_do_maior
-
                 for n_barra in m[linha][15][:indice_do_maior]:
-                    #                      [0:-1]
                     marcar_x_antes += n_barra
                 marcar_x_antes += espacos_antes
 
@@ -185,6 +184,7 @@ def passo1():
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
             m[linha][guia] = 0
             guia -= 1
+
         guia = 7
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
             m[linha][guia] = 0
@@ -260,11 +260,6 @@ def passo3():
 
         if barra_cheia and comecar_por_aqui + tamanho_da_barra + 1 < 15:
             m[linha][comecar_por_aqui + tamanho_da_barra] = "x"
-            if m[3][6] == "x":
-                print("lin ", linha)
-                print("com ", comecar_por_aqui)
-                print("tam ", tamanho_da_barra)
-                break
 
     # pra esquerda
     for linha in range(15):
@@ -495,14 +490,3 @@ def comparar():
     return True
 
 
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-comparar()
-
-print_matrix_color()
