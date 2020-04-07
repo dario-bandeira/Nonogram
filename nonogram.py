@@ -109,7 +109,14 @@ def executar_passos():
 def print_matrix():
     for i, x in enumerate(m[:15]):
         print('{: <2} '.format(i), end='')
-        print(*x)
+        for y in x:
+            if y == 0:
+                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
+            elif y == "x":
+                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+            else:
+                print(y, "", end='')
+        print()
     print("   ", end='')
 
     for x in m[15]:
@@ -132,16 +139,19 @@ def print_matrix():
     print()
 
 
-def print_matrix_color():
-    for x in m:
-        for y in x:
-            if y == 0:
-                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
-            elif y == "x":
-                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
-            else:
-                print(y, "", end='')
-        print()
+def comparar():
+    errado = False
+    for linha in range(15):
+        for coluna in range(15):
+            if m[linha][coluna] != "·" and m[linha][coluna] != matrix_correta[linha][coluna]:
+                print("errado linha ", linha, " coluna ", coluna)
+                errado = True
+    if errado:
+        return False
+    return True
+
+
+# # # PASSOS # # #
 
 
 def passo1():
@@ -478,15 +488,6 @@ def passo7():
                     m[linha][coluna] = "x"
 
 
-def comparar():
-    errado = False
-    for linha in range(15):
-        for coluna in range(15):
-            if m[linha][coluna] != "·" and m[linha][coluna] != matrix_correta[linha][coluna]:
-                print("errado linha ", linha, " coluna ", coluna)
-                errado = True
-    if errado:
-        return False
-    return True
-
-
+executar_passos()
+# print_matrix()
+print_matrix_color()
