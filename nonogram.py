@@ -93,7 +93,7 @@ def executar_passos():
     passos = {
         passo1: '',
         passo2: '',
-        passo3: '',
+        # passo3: '',
         # passo4: '',
         # passo5: '',
         # passo6: '',
@@ -157,7 +157,7 @@ def comparar():
 # # # PASSOS # # #
 
 
-def passo1():
+def passo1(debug=False):
     '''
     Achar na linha um número maior ou igual a 8 e
     preencher a barra a partir do meio da linha.
@@ -195,16 +195,20 @@ def passo1():
 
         guia = 7
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_depois):
+            if debug:
+                print_matrix(linha, guia)
             m[linha][guia] = 0
             guia -= 1
 
         guia = 7
         for y in range((tamanho_da_barra // 2 + 1) + marcar_x_antes):
+            if debug:
+                print_matrix(linha, guia)
             m[linha][guia] = 0
             guia += 1
 
 
-def passo2():
+def passo2(debug=False):
     '''
     Ver se os números dos extremos são o maior e conferir se
     a barra dele está completa. Se tiver, marcar o espaço restante
@@ -231,11 +235,13 @@ def passo2():
                     for coluna in range(14, -1, -1):
                         if m[linha][coluna] != 0:
                             m[linha][coluna] = "x"
-                            print_matrix(linha, coluna)
+                            if debug:
+                                print_matrix(linha, coluna)
                         else:
                             break
                 m[linha][c] = "x"
-                print_matrix(linha, c)
+                if debug:
+                    print_matrix(linha, c)
 
 
 def passo3():
@@ -493,5 +499,7 @@ def passo7():
                     m[linha][coluna] = "x"
 
 
+# executar_passos()
 executar_passos()
+passo3(True)
 # print_matrix()
