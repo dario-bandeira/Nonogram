@@ -368,6 +368,11 @@ def passo5(debug=False):
     questão. Fazer a mesma coisa da direita pra esquerda. Se a
     barra estiver completa, marcar os espaços livres com X.
     '''
+    m[0][0] = "x"
+    m[0][1] = "x"
+    m[0][8] = "x"
+    m[0][13] = "x"
+    m[0][14] = "x"
 
     for linha in range(15):
         comecar_por_aqui = 0
@@ -385,7 +390,7 @@ def passo5(debug=False):
         for coluna in range(comecar_por_aqui, 15):
             if m[linha][coluna] != "x":
                 medindo += 1
-            if m[linha][coluna] == "x":
+            if m[linha][coluna] == "x" and coluna != 14:
                 inicio_e_fim_de_cada_parte[-1].append(coluna - 1)
                 if m[linha][coluna + 1] == "x":
                     continue
@@ -396,6 +401,8 @@ def passo5(debug=False):
 
         inicio_e_fim_de_cada_parte[-1].append(14)
         tamanho_de_cada_parte.append(medindo)
+
+        print("linha", linha, " tem ", len(tamanho_de_cada_parte), " partes")
 
         # nº de barras = nº de espaços
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
@@ -528,3 +535,10 @@ def passo7(debug=False):
 
 
 executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
+print_matrix(0, 0)
