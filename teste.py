@@ -1,12 +1,8 @@
-a = 1
-b = 2
-
-
 def c():
-    global a, b
-    a = 9
-    b = 9
-
+    __name__ = c
+    print(__name__)
 
 c()
-print(a, b)
+
+
+

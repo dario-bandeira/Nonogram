@@ -94,12 +94,13 @@ def executar_passos():
         passo1: '',
         passo2: '',
         passo3: '',
-        # passo4: '',
-        # passo5: '',
-        # passo6: '',
-        # passo7: '',
+        passo4: '',
+        passo5: '',
+        passo6: '',
+        passo7: '',
     }
     for key, val in passos.items():
+        # print(key)
         key()
         m = girar_antihorario(m)
         key()
@@ -306,9 +307,13 @@ def passo3(debug=False):
                 em_aberto = True
             if m[linha][coluna] != 0 and em_aberto:
                 m[linha][coluna] = 0
+                if debug:
+                    print_matrix(linha, coluna)
 
         if barra_cheia and comecar_por_aqui - tamanho_da_barra > 0:
             m[linha][comecar_por_aqui - tamanho_da_barra] = "x"
+            if debug:
+                print_matrix(linha, comecar_por_aqui - tamanho_da_barra)
 
 
 def passo4(debug=False):
@@ -347,7 +352,7 @@ def passo4(debug=False):
                     print_matrix(linha, voltando)
 
 
-def passo5():
+def passo5(debug=False):
     '''
     Quebrar as linhas (e colunas) em pedaços usando os X's como divisor.
     Conferir se o número de pedaços é o mesmo número de
@@ -424,9 +429,13 @@ def passo5():
                         for coluna in range(espaco[0], espaco[1] + 1):
                             if barra_aux:
                                 m[linha][coluna] = 0
+                                if debug:
+                                    print_matrix(linha, coluna)
                                 barra_aux -= 1
                             else:
                                 m[linha][coluna] = "x"
+                                if debug:
+                                    print_matrix(linha, coluna)
                     else:
                         barra_aux = barras[i]
                         for coluna in range(espaco[0], espaco[1] + 1):
@@ -434,6 +443,8 @@ def passo5():
                                 barra_aux -= 1
                                 if not barra_aux:
                                     m[linha][coluna] = 0
+                                    if debug:
+                                        print_matrix(linha, coluna)
                                     break
 
                         # direita pra esquerda
@@ -444,9 +455,13 @@ def passo5():
                             for coluna in range(espaco[1], espaco[0] - 1, -1):
                                 if barra_aux:
                                     m[linha][coluna] = 0
+                                    if debug:
+                                        print_matrix(linha, coluna)
                                     barra_aux -= 1
                                 else:
                                     m[linha][coluna] = "x"
+                                    if debug:
+                                        print_matrix(linha, coluna)
                         else:
                             barra_aux = barras[i]
                             for coluna in range(espaco[1], espaco[0] - 1, -1):
@@ -454,10 +469,12 @@ def passo5():
                                     barra_aux -= 1
                                     if not barra_aux:
                                         m[linha][coluna] = 0
+                                        if debug:
+                                            print_matrix(linha, coluna)
                                         break
 
 
-def passo6():
+def passo6(debug=False):
     '''
     Nas linhas que tiverem uma barra só, se tiver mais de uma,
     emendar.
@@ -479,9 +496,11 @@ def passo6():
 
             for coluna in range(comecar_por_aqui, ir_ate_aqui):
                 m[linha][coluna] = 0
+                if debug:
+                    print_matrix(linha, coluna)
 
 
-def passo7():
+def passo7(debug=False):
     '''
     Conferir as linhas que já estão completas e marcar X nos espaços
     em branco.
@@ -504,9 +523,8 @@ def passo7():
             for coluna in range(15):
                 if m[linha][coluna] != 0:
                     m[linha][coluna] = "x"
+                    if debug:
+                        print_matrix(linha, coluna)
 
 
-# executar_passos()
 executar_passos()
-passo4(True)
-# print_matrix()
