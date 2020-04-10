@@ -96,8 +96,8 @@ def executar_passos():
         passo3: '',
         passo4: '',
         passo5: '',
-        passo6: '',
-        passo7: '',
+        # passo6: '',
+        # passo7: '',
     }
     for key, val in passos.items():
         # print(key)
@@ -108,6 +108,7 @@ def executar_passos():
 
 
 def print_matrix(ll, cc):
+    print('{: <2} '.format("   0 1 2 3 4 5 6 7 8 9 10  12  14"))
     for i_x, x in enumerate(m[:15]):
         print('{: <2} '.format(i_x), end='')
         for i_y, y in enumerate(x):
@@ -152,7 +153,9 @@ def comparar():
                 errado = True
     if errado:
         return False
-    return True
+    else:
+        print("Tudo certo!")
+        return True
 
 
 # # # PASSOS # # #
@@ -393,7 +396,8 @@ def passo5(debug=False):
                     medindo = 0
                     inicio_e_fim_de_cada_parte.append([coluna + 1])
 
-        inicio_e_fim_de_cada_parte[-1].append(14)
+        if len(inicio_e_fim_de_cada_parte[-1]) == 1:
+            inicio_e_fim_de_cada_parte[-1].append(14)
         tamanho_de_cada_parte.append(medindo)
 
         # nº de barras = nº de espaços
@@ -415,15 +419,14 @@ def passo5(debug=False):
                             cabe_mais_de_um = True
 
             if not cabe_mais_de_um:
-                # esquerda pra direita
                 for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
                     # a barra tem que ter no mínimo metade do espaço
                     if not barras[i] > (espaco[1] - espaco[0] + 1) // 2:
                         continue
-
-                    # se a primeira casa for zero:
-                    # preenche a barra, o resto do espaço é "x"
+                    # esquerda pra direita
+                    # se a primeira é zero:
                     if m[linha][espaco[0]] == 0:
+                        # preenche a barra toda e o resto é x
                         barra_aux = barras[i]
                         for coluna in range(espaco[0], espaco[1] + 1):
                             if barra_aux:
@@ -435,11 +438,36 @@ def passo5(debug=False):
                                 m[linha][coluna] = "x"
                                 if debug:
                                     print_matrix(linha, coluna)
-                    else:
+
+                    # senão: se a última é x:
+                    elif m[linha][espaco[1]] == 0:
+                        # preenche a barra toda e o resto é x
                         barra_aux = barras[i]
+                        for coluna in range(espaco[1], espaco[0] - 1, -1):
+                            if barra_aux:
+                                m[linha][coluna] = 0
+                                if debug:
+                                    print_matrix(linha, coluna)
+                                barra_aux -= 1
+                            else:
+                                m[linha][coluna] = "x"
+                                if debug:
+                                    print_matrix(linha, coluna)
+                    # senão:
+                    else:
+                        # esquerda pra direita
+                        # pula o tanto de casas que é a barra, se achar 0 vai pondo 0, na última põe 0
+                        barra_aux = barras[i]
+                        em_aberto = False
                         for coluna in range(espaco[0], espaco[1] + 1):
                             if barra_aux:
                                 barra_aux -= 1
+                                if m[linha][coluna] == 0:
+                                    em_aberto = True
+                                if em_aberto:
+                                    m[linha][coluna] = 0
+                                    if debug:
+                                        print_matrix(linha, coluna)
                                 if not barra_aux:
                                     m[linha][coluna] = 0
                                     if debug:
@@ -447,30 +475,20 @@ def passo5(debug=False):
                                     break
 
                         # direita pra esquerda
-                        # se a primeira casa for zero:
-                        # preenche a barra, o resto do espaço é "x"
-                        if m[linha][espaco[1]] == 0:
-                            barra_aux = barras[i]
-                            for coluna in range(espaco[1], espaco[0] - 1, -1):
-                                if barra_aux:
+                        # pula o tanto de casas que é a barra, quando achar 0 vai pondo 0
+                        barra_aux = barras[i]
+                        em_aberto = False
+                        for coluna in range(espaco[1], espaco[0] - 1, -1):
+                            if barra_aux:
+                                if m[linha][coluna] == 0:
+                                    em_aberto = True
+                                if em_aberto:
                                     m[linha][coluna] = 0
                                     if debug:
                                         print_matrix(linha, coluna)
-                                    barra_aux -= 1
-                                else:
-                                    m[linha][coluna] = "x"
-                                    if debug:
-                                        print_matrix(linha, coluna)
-                        else:
-                            barra_aux = barras[i]
-                            for coluna in range(espaco[1], espaco[0] - 1, -1):
-                                if barra_aux:
-                                    barra_aux -= 1
-                                    if not barra_aux:
-                                        m[linha][coluna] = 0
-                                        if debug:
-                                            print_matrix(linha, coluna)
-                                        break
+                                barra_aux -= 1
+                            else:
+                                break
 
 
 def passo6(debug=False):
@@ -527,4 +545,8 @@ def passo7(debug=False):
 
 
 executar_passos()
+executar_passos()
+executar_passos()
+executar_passos()
 print_matrix(0, 0)
+comparar()

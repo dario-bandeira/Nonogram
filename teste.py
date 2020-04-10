@@ -1,8 +1,8 @@
-def c():
-    __name__ = c
-    print(__name__)
+a = 0
+b = 1
 
-c()
+if a:
+    print("a")
 
-
-
+if b:
+    print("b")
