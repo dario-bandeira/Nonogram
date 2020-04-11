@@ -1,8 +1,7 @@
-a = 0
-b = 1
+i = [[0, 1], [2, 3]]
+a = []
 
-if a:
-    print("a")
+for espaco in i:
+    a.append(espaco)
 
-if b:
-    print("b")
+print(a)

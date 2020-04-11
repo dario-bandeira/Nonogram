@@ -96,8 +96,8 @@ def executar_passos():
         passo3: '',
         passo4: '',
         passo5: '',
-        # passo6: '',
-        # passo7: '',
+        passo6: '',
+        passo7: '',
     }
     for key, val in passos.items():
         # print(key)
@@ -400,8 +400,10 @@ def passo5(debug=False):
             inicio_e_fim_de_cada_parte[-1].append(14)
         tamanho_de_cada_parte.append(medindo)
 
-        # nº de barras = nº de espaços
+        # nº de espaços = nº de barras
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
+
+
             barras = m[linha][15]
             cabe_mais_de_um = False
 
@@ -490,6 +492,46 @@ def passo5(debug=False):
                             else:
                                 break
 
+            # cabe mais de um, mas...
+            # conferir se só falta uma barra pra preencher,
+            # vendo quais partes tem espaços vazios ainda.
+            # else:
+
+        # nº de barras != nº de espaços
+        else:
+            # se tem mais espaços que barras:
+            if len(tamanho_de_cada_parte) > len(m[linha][15]):
+                # confere se as barras já estão em seus espaços,
+                # mesmo que parcialmente
+
+                espacos_preenchidos = []
+                espacos_vazios = []
+                for espaco in inicio_e_fim_de_cada_parte:
+                    vazio = True
+                    for coluna in range(espaco[0], espaco[1] + 1):
+                        if girado and linha == 7:
+                            print_matrix(linha, coluna)
+                        if m[linha][coluna] == 0:
+                            # esse espaço tem preenchimento
+                            espacos_preenchidos.append(espaco)
+                            vazio = False
+                            break
+                    if vazio:
+                        espacos_vazios.append(espaco)
+
+                # print("linha ", linha, " espacos vazios ", espacos_vazios, end='')
+                # if girado: print(", girado")
+
+                # as barras já estão em seus devidos lugares:
+                if len(espacos_preenchidos) == len(m[linha][15]):
+                    # então ponha "x" nos espaços vazios
+                    for espaco in espacos_vazios:
+                        for coluna in range(espaco[0], espaco[1] + 1):
+                            m[linha][coluna] = "x"
+                            print_matrix(linha, coluna)
+                            if debug:
+                                print_matrix(linha, coluna)
+
 
 def passo6(debug=False):
     '''
@@ -544,6 +586,8 @@ def passo7(debug=False):
                         print_matrix(linha, coluna)
 
 
+executar_passos()
+executar_passos()
 executar_passos()
 executar_passos()
 executar_passos()
