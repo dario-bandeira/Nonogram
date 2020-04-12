@@ -402,6 +402,8 @@ def passo5(debug=False):
 
         # nº de espaços = nº de barras
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
+
+
             barras = m[linha][15]
             cabe_mais_de_um = False
 
@@ -507,6 +509,8 @@ def passo5(debug=False):
                 for espaco in inicio_e_fim_de_cada_parte:
                     vazio = True
                     for coluna in range(espaco[0], espaco[1] + 1):
+                        if girado and linha == 7:
+                            print_matrix(linha, coluna)
                         if m[linha][coluna] == 0:
                             # esse espaço tem preenchimento
                             espacos_preenchidos.append(espaco)
@@ -524,6 +528,7 @@ def passo5(debug=False):
                     for espaco in espacos_vazios:
                         for coluna in range(espaco[0], espaco[1] + 1):
                             m[linha][coluna] = "x"
+                            print_matrix(linha, coluna)
                             if debug:
                                 print_matrix(linha, coluna)
 
@@ -581,6 +586,8 @@ def passo7(debug=False):
                         print_matrix(linha, coluna)
 
 
+executar_passos()
+executar_passos()
 executar_passos()
 executar_passos()
 executar_passos()
