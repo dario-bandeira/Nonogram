@@ -1,0 +1,197 @@
+[33mcommit 21311eafeaa2c31676b7f60c3ea4f102ff1d2136[m[33m ([m[1;36mHEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Sat Apr 11 14:35:36 2020 -0400
+
+    passo 5 melhorado. Parece que acabou. Tomara.
+
+[33mcommit 60642be2b5ef6850cdbe6ecde03b2363fd26da8a[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Sat Apr 11 02:08:57 2020 -0400
+
+    nova função no passo 5: encher de 'x' os espaços vazios
+
+[33mcommit 43bae1c375e1f2249add2cf95dce24eb26fdeb0d[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Sat Apr 11 02:02:54 2020 -0400
+
+    nova função no passo 5: encher de 'x' os espaços vazios
+
+[33mcommit b9161ab2e3853dc71c04b1c3d2783ceec09d7b4c[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Fri Apr 10 02:20:38 2020 -0400
+
+    correção no passo 5: tava preenchendo a barra errado
+
+[33mcommit 6fb882d0c18aa54af3d64c578c96e2185edbe165[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Wed Apr 8 14:47:06 2020 -0400
+
+    ainda tinha lixo no código
+
+[33mcommit e8db1a8934cc8f4a31d1442e2f2cc07082a2115b[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 23:58:44 2020 -0400
+
+    corrigido problema no passo 5 (contagem de 'partes' por linha, divididos por X)
+
+[33mcommit 249c626bb379e04a24f7f016c3485f3a522f437a[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 22:04:25 2020 -0400
+
+    debug adicionado em todos os passos
+
+[33mcommit 22c04c96cf89c448789e6d2b69693a463bea3c79[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 17:41:20 2020 -0400
+
+    debug adicionado nos passos 3 e 4
+
+[33mcommit bb4ae9af5955e3533956b2058ebd3264a8fc09fc[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 17:30:41 2020 -0400
+
+    debug adicionado nos passos 1 e 2
+
+[33mcommit 6605568b4ca03f25bba443ef81271015155920cc[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 17:01:54 2020 -0400
+
+    funcao print_matrix agora com apontador
+
+[33mcommit 25e310f253bdc4537cf1ab5c1a242932d124c521[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 16:09:36 2020 -0400
+
+    função print_matrix_color eliminada
+
+[33mcommit 385c09e72701e82900a318b96914b9eefe8212b7[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Apr 7 15:55:26 2020 -0400
+
+    pygame eliminado. Começando de novo
+
+[33mcommit 6d3e0daa3a1596318bb46a712b2b40b1e55550ee[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Thu Mar 26 19:38:46 2020 -0400
+
+    tudo certo
+
+[33mcommit e96e261941c957f2c4a5de973e56613fabaf6758[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Thu Mar 26 18:23:58 2020 -0400
+
+    passo 3 concertado
+
+[33mcommit 71c83c17a7ed0f2fc1513a0e04d74f03a9a7e518[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Thu Mar 26 14:53:48 2020 -0400
+
+    passo 2 completo
+
+[33mcommit d20d875151f104fef8eba5df4fafb3c93c003241[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Wed Mar 25 23:07:08 2020 -0400
+
+    passo 2 tá com problema (linha 3)
+
+[33mcommit 5cbe33a4588ed64cae7cbd4e514d2fd1e15f44d4[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Wed Mar 25 22:54:07 2020 -0400
+
+    passo 2 completo
+
+[33mcommit e2939e302fca2b676c751cb48bc2d4506d542b4a[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Wed Mar 25 21:51:16 2020 -0400
+
+    passo 6 completo
+
+[33mcommit f84f68f1ea89ced1314cfce2065a7f708a4ff636[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Tue Mar 24 13:53:27 2020 -0400
+
+    passo 5 completo
+
+[33mcommit 1dc7783ec9e8f0a0423e91ce299c493d6f309b96[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Sat Mar 21 01:16:41 2020 -0400
+
+    m
+
+[33mcommit c9b7176d9b3a77a1a2d07fa3d68c68dd7daeddef[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Sat Mar 21 00:12:35 2020 -0400
+
+    só comentários
+
+[33mcommit e26e2f366d4d80a771b9601d94c2e0dbd8551606[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Tue Mar 17 14:33:46 2020 -0400
+
+    passo 5 incompleto
+
+[33mcommit 5bd3e7478643b4ed10aa5e7eee579d17584fac97[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Fri Mar 13 13:43:03 2020 -0400
+
+    passo 1 estava pela metade, agora está completo. Passo 5 incompleto
+
+[33mcommit b44bf9bc3f2c6af9fb15bc75ec28dc67f38e62c4[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Thu Mar 12 14:46:33 2020 -0400
+
+    passo 5 dando resposta errada ainda
+
+[33mcommit 98ee7a321a5eb175050b4a2950116399c5fa1171[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Wed Mar 11 14:05:32 2020 -0400
+
+    passo 5 incompleto
+
+[33mcommit 558a9d0a592f0d0138434de95a96a5e70540f028[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Wed Mar 11 13:07:09 2020 -0400
+
+    passo 4 completo
+
+[33mcommit 84e837e0077752f303a04bdeaf6474c5c8158a2b[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Wed Mar 11 10:43:36 2020 -0400
+
+    passo 3 completo
+
+[33mcommit 1e7c1961b5af36dc477a33d00f37cd1210df6a5b[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Tue Mar 10 14:00:21 2020 -0400
+
+    passo 3 - pra baixo concluído
+
+[33mcommit 3841e26ce2af6b601e7eab1777dde05ad4b895f1[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Tue Mar 10 13:32:21 2020 -0400
+
+    passo 3 - pra-esquerda e pra-direita concluído
+
+[33mcommit 33bab27bdf391542de04611f02156b7d6c27356b[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Mon Mar 9 23:16:17 2020 -0400
+
+    passo 1 concluído
+
+[33mcommit b24b92c5c0958e038f6a4e2f620528a67b8e5291[m
+Author: Dario <dario.b.santos@gmail.com>
+Date:   Mon Mar 9 19:42:11 2020 -0400
+
+    imagem auxiliar
+
+[33mcommit 2184c87a0bc697d67b393b222a6e00417bf7b67b[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Mon Mar 9 14:20:06 2020 -0400
+
+    passo 1 concluído
+
+[33mcommit cd0f29fef4307eb89c25b678a6862eeb7eae81d9[m
+Author: Dario Bandeira <dario.b.santos@gmail.com>
+Date:   Mon Mar 9 11:37:00 2020 -0400
+
+    first commit

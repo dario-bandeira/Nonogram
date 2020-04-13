@@ -11,6 +11,8 @@ class bcolors:
 
 m = [["·" for x in range(16)] for y in range(16)]
 
+'''
+MATRIZ 1 (FLOR)
 m[0][15] = [1, 2, 3]
 m[1][15] = [2, 4, 3]
 m[2][15] = [2, 8]
@@ -62,6 +64,60 @@ matrix_correta = [
     ["x", 0, 0, 0, 0, 0, "x", 0, 0, "x", 0, 0, 0, 0, "x"],
     ["x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x"],
 ]
+'''
+
+
+m[0][15] = [5]
+m[1][15] = [4, 1]
+m[2][15] = [4, 1, 5]
+m[3][15] = [11, 1]
+m[4][15] = [9, 1]
+m[5][15] = [3, 4, 1]
+m[6][15] = [3, 1, 3]
+m[7][15] = [1, 1, 3]
+m[8][15] = [1, 3, 5]
+m[9][15] = [3, 10]
+m[10][15] = [15]
+m[11][15] = [15]
+m[12][15] = [10, 3]
+m[13][15] = [5, 3]
+m[14][15] = [3]
+
+m[15][0] = [4, 4]
+m[15][1] = [6, 6]
+m[15][2] = [14]
+m[15][3] = [4, 1, 6]
+m[15][4] = [2, 2, 4]
+m[15][5] = [1, 2, 4]
+m[15][6] = [1, 2, 6]
+m[15][7] = [14]
+m[15][8] = [1, 3, 6]
+m[15][9] = [1, 1, 4]
+m[15][10] = [2, 2, 4]
+m[15][11] = [1, 7]
+m[15][12] = [11]
+m[15][13] = [1, 6]
+m[15][14] = [1, 4]
+
+matrix_correta = [
+    ["x","x","x","x",0,0,0,0,0,"x","x","x","x","x","x"],
+    ["x",0,0,0,0,"x","x",0,"x","x","x","x","x","x","x"],
+    [0,0,0,0,"x","x","x",0,"x","x",0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,"x",0,"x","x"],
+    [0,0,0,0,0,0,0,0,0,"x","x","x",0,"x","x"],
+
+    [0,0,0,"x","x","x","x",0,0,0,0,"x",0,"x","x"],
+    ["x",0,0,0,"x","x","x",0,"x","x",0,0,0,"x","x"],
+    ["x","x",0,"x","x","x","x",0,"x","x","x",0,0,0,"x"],
+    ["x","x",0,"x","x","x",0,0,0,"x",0,0,0,0,0],
+    ["x",0,0,0,"x",0,0,0,0,0,0,0,0,0,0],
+
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,"x",0,0,0,"x"],
+    [0,0,0,0,0,"x",0,0,0,"x","x","x","x","x","x"],
+    ["x",0,0,0,"x","x","x","x","x","x","x","x","x","x","x"]
+]
 
 girado = False
 
@@ -88,7 +144,7 @@ def girar_antihorario(m):
     return m
 
 
-def executar_passos():
+def executar_passos(debug=False):
     global m
     passos = {
         passo1: '',
@@ -100,11 +156,21 @@ def executar_passos():
         passo7: '',
     }
     for key, val in passos.items():
-        # print(key)
-        key()
-        m = girar_antihorario(m)
-        key()
-        girar_horario(m)
+        if debug:
+            print("###########")
+            print("###########")
+            print(key)
+            print("###########")
+            print("###########")
+            key(True)
+            m = girar_antihorario(m)
+            key(True)
+            girar_horario(m)
+        else:
+            key()
+            m = girar_antihorario(m)
+            key()
+            girar_horario(m)
 
 
 def print_matrix(ll, cc):
@@ -592,5 +658,8 @@ executar_passos()
 executar_passos()
 executar_passos()
 executar_passos()
-print_matrix(0, 0)
+executar_passos()
+
+passo5(True)
+# print_matrix(0, 0)
 comparar()
