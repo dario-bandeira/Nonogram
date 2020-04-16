@@ -11,8 +11,7 @@ class bcolors:
 
 m = [["·" for x in range(16)] for y in range(16)]
 
-'''
-MATRIZ 1 (FLOR)
+# MATRIZ 1 (FLOR)
 m[0][15] = [1, 2, 3]
 m[1][15] = [2, 4, 3]
 m[2][15] = [2, 8]
@@ -64,9 +63,9 @@ matrix_correta = [
     ["x", 0, 0, 0, 0, 0, "x", 0, 0, "x", 0, 0, 0, 0, "x"],
     ["x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x"],
 ]
+
+# MATRIZ 2
 '''
-
-
 m[0][15] = [5]
 m[1][15] = [4, 1]
 m[2][15] = [4, 1, 5]
@@ -118,6 +117,7 @@ matrix_correta = [
     [0,0,0,0,0,"x",0,0,0,"x","x","x","x","x","x"],
     ["x",0,0,0,"x","x","x","x","x","x","x","x","x","x","x"]
 ]
+'''
 
 girado = False
 
@@ -542,75 +542,7 @@ def passo5(debug=False):
 
             if not cabe_mais_de_um:
                 for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
-                    # a barra tem que ter no mínimo metade do espaço
-                    if not barras[i] > (espaco[1] - espaco[0] + 1) // 2:
-                        continue
-                    # esquerda pra direita
-                    # se a primeira é zero:
-                    if m[linha][espaco[0]] == 0:
-                        # preenche a barra toda e o resto é x
-                        barra_aux = barras[i]
-                        for coluna in range(espaco[0], espaco[1] + 1):
-                            if barra_aux:
-                                m[linha][coluna] = 0
-                                if debug:
-                                    print_matrix(linha, coluna)
-                                barra_aux -= 1
-                            else:
-                                m[linha][coluna] = "x"
-                                if debug:
-                                    print_matrix(linha, coluna)
-
-                    # senão: se a última é x:
-                    elif m[linha][espaco[1]] == 0:
-                        # preenche a barra toda e o resto é x
-                        barra_aux = barras[i]
-                        for coluna in range(espaco[1], espaco[0] - 1, -1):
-                            if barra_aux:
-                                m[linha][coluna] = 0
-                                if debug:
-                                    print_matrix(linha, coluna)
-                                barra_aux -= 1
-                            else:
-                                m[linha][coluna] = "x"
-                                if debug:
-                                    print_matrix(linha, coluna)
-                    # senão:
-                    else:
-                        # esquerda pra direita
-                        # pula o tanto de casas que é a barra, se achar 0 vai pondo 0, na última põe 0
-                        barra_aux = barras[i]
-                        em_aberto = False
-                        for coluna in range(espaco[0], espaco[1] + 1):
-                            if barra_aux:
-                                barra_aux -= 1
-                                if m[linha][coluna] == 0:
-                                    em_aberto = True
-                                if em_aberto:
-                                    m[linha][coluna] = 0
-                                    if debug:
-                                        print_matrix(linha, coluna)
-                                if not barra_aux:
-                                    m[linha][coluna] = 0
-                                    if debug:
-                                        print_matrix(linha, coluna)
-                                    break
-
-                        # direita pra esquerda
-                        # pula o tanto de casas que é a barra, quando achar 0 vai pondo 0
-                        barra_aux = barras[i]
-                        em_aberto = False
-                        for coluna in range(espaco[1], espaco[0] - 1, -1):
-                            if barra_aux:
-                                if m[linha][coluna] == 0:
-                                    em_aberto = True
-                                if em_aberto:
-                                    m[linha][coluna] = 0
-                                    if debug:
-                                        print_matrix(linha, coluna)
-                                barra_aux -= 1
-                            else:
-                                break
+                    preenche_barra_no_espaco(linha, espaco, barras[i])
 
         # nº de barras != nº de espaços
         else:
@@ -624,8 +556,6 @@ def passo5(debug=False):
                 for espaco in inicio_e_fim_de_cada_parte:
                     vazio = True
                     for coluna in range(espaco[0], espaco[1] + 1):
-                        if girado and linha == 7:
-                            print_matrix(linha, coluna)
                         if m[linha][coluna] == 0:
                             # esse espaço tem preenchimento
                             espacos_preenchidos.append(espaco)
@@ -634,16 +564,12 @@ def passo5(debug=False):
                     if vazio:
                         espacos_vazios.append(espaco)
 
-                # print("linha ", linha, " espacos vazios ", espacos_vazios, end='')
-                # if girado: print(", girado")
-
                 # as barras já estão em seus devidos lugares:
                 if len(espacos_preenchidos) == len(m[linha][15]):
                     # então ponha "x" nos espaços vazios
                     for espaco in espacos_vazios:
                         for coluna in range(espaco[0], espaco[1] + 1):
                             m[linha][coluna] = "x"
-                            print_matrix(linha, coluna)
                             if debug:
                                 print_matrix(linha, coluna)
 
@@ -708,7 +634,5 @@ executar_passos()
 executar_passos()
 executar_passos()
 executar_passos()
-
-passo5(True)
 # print_matrix(0, 0)
 comparar()
