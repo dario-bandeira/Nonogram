@@ -65,7 +65,7 @@ matrix_correta = [
 ]
 
 # MATRIZ 2
-'''
+"""
 m[0][15] = [5]
 m[1][15] = [4, 1]
 m[2][15] = [4, 1, 5]
@@ -117,7 +117,7 @@ matrix_correta = [
     [0,0,0,0,0,"x",0,0,0,"x","x","x","x","x","x"],
     ["x",0,0,0,"x","x","x","x","x","x","x","x","x","x","x"]
 ]
-'''
+"""
 
 girado = False
 
@@ -220,11 +220,11 @@ def comparar():
     if errado:
         return False
     else:
-        print("Tudo certo!")
+        print(bcolors.OKGREEN + "Tudo certo!" + bcolors.ENDC)
         return True
 
 
-def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
+def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra, debug=False):
     global m
     tamanho_do_espaco = espaco[1] - espaco[0] + 1
     vazio = True
@@ -237,6 +237,8 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
         # aquele calculo massa lá
         for coluna in range(espaco[1] - tamanho_da_barra + 1, espaco[0] + tamanho_da_barra):
             m[linha][coluna] = 0
+            if debug:
+                print_matrix(linha, coluna)
 
     # se não tá vazio:
     if not vazio:
@@ -255,6 +257,8 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
                         novo_fim = coluna
                 else:
                     m[linha][coluna] = "x"
+                    if debug:
+                        print_matrix(linha, coluna)
 
         # mesma coisa da direita pra esquerda.
         em_aberto = False
@@ -270,26 +274,29 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
                         novo_inicio = coluna
                 else:
                     m[linha][coluna] = "x"
+                    if debug:
+                        print_matrix(linha, coluna)
 
         if novo_inicio == "":
-            novo_inicio = 0
+            novo_inicio = espaco[0]
         if novo_fim == "":
-            novo_fim = 14
+            novo_fim = espaco[1]
         espaco = [novo_inicio, novo_fim]
         for coluna in range(espaco[1] - tamanho_da_barra + 1, espaco[0] + tamanho_da_barra):
             m[linha][coluna] = 0
+            if debug:
+                print_matrix(linha, coluna)
 
 
 # # # PASSOS # # #
 
 
 def passo1(debug=False):
-    '''
-    Achar na linha um número maior ou igual a 8 e
+    """Achar na linha um número maior ou igual a 8 e
     preencher a barra a partir do meio da linha.
     Usar os números vizinhos pra preencher ao redor
     da barra, considerando os espaços.
-    '''
+    """
     linhas_que_tem_maior_igual_8 = []
     for i, x in enumerate(m[:15]):
         if max(x[15]) >= 8:
@@ -335,11 +342,10 @@ def passo1(debug=False):
 
 
 def passo2(debug=False):
-    '''
-    Ver se os números dos extremos são o maior e conferir se
+    """Ver se os números dos extremos são o maior e conferir se
     a barra dele está completa. Se tiver, marcar o espaço restante
     com X e conferir a próxima barra.
-    '''
+    """
     for linha in range(15):
         # se a última barra da linha é a maior:
         if m[linha][15][-1] == max(m[linha][15]):
@@ -371,8 +377,7 @@ def passo2(debug=False):
 
 
 def passo3(debug=False):
-    '''
-    Ver se tem 'zero' encostado nas paredes.
+    """Ver se tem 'zero' encostado nas paredes.
     A partir dele, desenhar os seguintes e marcar o
     fim com um X.
     -ou-
@@ -382,7 +387,7 @@ def passo3(debug=False):
     número em questão, mas nesse caso não marca o
     fim com X. Lembrar de ignorar os X que aparecem
     desde o começo da linha.
-    '''
+    """
     # pra direita
     for linha in range(15):
         comecar_por_aqui = 0
@@ -442,11 +447,10 @@ def passo3(debug=False):
 
 
 def passo4(debug=False):
-    '''
-    A partir da borda, conferir se a primeira barra
+    """A partir da borda, conferir se a primeira barra
     cabe no primeiro espaço vazio. Se não couber,
     preencher o espaço com X.
-    '''
+    """
     # pra direita
     for linha in range(15):
         tamanho_do_primeiro_espaco = 0
@@ -477,9 +481,8 @@ def passo4(debug=False):
                     print_matrix(linha, voltando)
 
 
-def passo5(debug=False):
-    '''
-    Quebrar as linhas (e colunas) em pedaços usando os X's como divisor.
+def passo5():
+    """Quebrar as linhas (e colunas) em pedaços usando os X's como divisor.
     Conferir se o número de pedaços é o mesmo número de
     barras da linha. Se for, e se não couberem duas
     barras em um único espaço, sabemos que cada barra está dentro de
@@ -492,7 +495,7 @@ def passo5(debug=False):
     pra direita a partir do primeiro quadrado pintado o número em
     questão. Fazer a mesma coisa da direita pra esquerda. Se a
     barra estiver completa, marcar os espaços livres com X.
-    '''
+    """
     for linha in range(15):
         comecar_por_aqui = 0
         tamanho_de_cada_parte = []
@@ -545,40 +548,39 @@ def passo5(debug=False):
                     preenche_barra_no_espaco(linha, espaco, barras[i])
 
         # nº de barras != nº de espaços
-        else:
-            # se tem mais espaços que barras:
-            if len(tamanho_de_cada_parte) > len(m[linha][15]):
-                # confere se as barras já estão em seus espaços,
-                # mesmo que parcialmente
-
-                espacos_preenchidos = []
-                espacos_vazios = []
-                for espaco in inicio_e_fim_de_cada_parte:
-                    vazio = True
-                    for coluna in range(espaco[0], espaco[1] + 1):
-                        if m[linha][coluna] == 0:
-                            # esse espaço tem preenchimento
-                            espacos_preenchidos.append(espaco)
-                            vazio = False
-                            break
-                    if vazio:
-                        espacos_vazios.append(espaco)
-
-                # as barras já estão em seus devidos lugares:
-                if len(espacos_preenchidos) == len(m[linha][15]):
-                    # então ponha "x" nos espaços vazios
-                    for espaco in espacos_vazios:
-                        for coluna in range(espaco[0], espaco[1] + 1):
-                            m[linha][coluna] = "x"
-                            if debug:
-                                print_matrix(linha, coluna)
+        # else:
+        #     # se tem mais espaços que barras:
+        #     if len(tamanho_de_cada_parte) > len(m[linha][15]):
+        #         # confere se as barras já estão em seus espaços,
+        #         # mesmo que parcialmente
+        #
+        #         espacos_preenchidos = []
+        #         espacos_vazios = []
+        #         for espaco in inicio_e_fim_de_cada_parte:
+        #             vazio = True
+        #             for coluna in range(espaco[0], espaco[1] + 1):
+        #                 if m[linha][coluna] == 0:
+        #                     # esse espaço tem preenchimento
+        #                     espacos_preenchidos.append(espaco)
+        #                     vazio = False
+        #                     break
+        #             if vazio:
+        #                 espacos_vazios.append(espaco)
+        #
+        #         # as barras já estão em seus devidos lugares:
+        #         if len(espacos_preenchidos) == len(m[linha][15]):
+        #             # então ponha "x" nos espaços vazios
+        #             for espaco in espacos_vazios:
+        #                 for coluna in range(espaco[0], espaco[1] + 1):
+        #                     m[linha][coluna] = "x"
+        #                     if debug:
+        #                         print_matrix(linha, coluna)
 
 
 def passo6(debug=False):
-    '''
-    Nas linhas que tiverem uma barra só, se tiver mais de uma,
+    """Nas linhas que tiverem uma barra só, se tiver mais de uma,
     emendar.
-    '''
+    """
 
     for linha in range(15):
         comecar_por_aqui = 0
@@ -601,10 +603,9 @@ def passo6(debug=False):
 
 
 def passo7(debug=False):
-    '''
-    Conferir as linhas que já estão completas e marcar X nos espaços
+    """Conferir as linhas que já estão completas e marcar X nos espaços
     em branco.
-    '''
+    """
     for linha in range(15):
         barras = []
         em_aberto = False
@@ -634,5 +635,12 @@ executar_passos()
 executar_passos()
 executar_passos()
 executar_passos()
-# print_matrix(0, 0)
+print_matrix(0,0)
+preenche_barra_no_espaco(9, [3, 11], 6)
+preenche_barra_no_espaco(8, [2, 11], 8)
+executar_passos()
+executar_passos()
+executar_passos()
+
+print_matrix(0,0)
 comparar()

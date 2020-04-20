@@ -1,9 +1,7 @@
-# se o espaço tá vazio, e a barra é menos da metade: faz nada
-
-m = [["·" for x in range(15)]]
+m = [[0, 0, 0, "x", "x", "·", "·", 0, 0, "·", "x", "x", 0, 0, 0]]
 
 
-def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
+def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra, debug=False):
     global m
     tamanho_do_espaco = espaco[1] - espaco[0] + 1
     vazio = True
@@ -16,6 +14,8 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
         # aquele calculo massa lá
         for coluna in range(espaco[1] - tamanho_da_barra + 1, espaco[0] + tamanho_da_barra):
             m[linha][coluna] = 0
+            if debug:
+                print_matrix(linha, coluna)
 
     # se não tá vazio:
     if not vazio:
@@ -34,6 +34,8 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
                         novo_fim = coluna
                 else:
                     m[linha][coluna] = "x"
+                    if debug:
+                        print_matrix(linha, coluna)
 
         # mesma coisa da direita pra esquerda.
         em_aberto = False
@@ -49,34 +51,20 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra):
                         novo_inicio = coluna
                 else:
                     m[linha][coluna] = "x"
+                    if debug:
+                        print_matrix(linha, coluna)
 
         if novo_inicio == "":
-            novo_inicio = 0
+            novo_inicio = espaco[0]
         if novo_fim == "":
-            novo_fim = 14
+            novo_fim = espaco[1]
         espaco = [novo_inicio, novo_fim]
         for coluna in range(espaco[1] - tamanho_da_barra + 1, espaco[0] + tamanho_da_barra):
             m[linha][coluna] = 0
+            if debug:
+                print_matrix(linha, coluna)
 
 
-# espaço: 15
-# barra: 8
-
-
-m[0][2] = ""
-# m[0][5] = 0
-
-# ···············
-# ·······0·······
-
-# ····0··········
-# ····0000·······
-
-# ····0····0·····
-# xx··000000··xxx
-
-# 0··············
-# 00000000xxxxxxx
-
-preenche_barra_no_espaco(0, [0, 14], 8)
+print(*m[0])
+preenche_barra_no_espaco(0, [5, 9], 4)
 print(*m[0])
