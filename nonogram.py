@@ -1,3 +1,5 @@
+import copy
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -217,6 +219,7 @@ def comparar():
             if m[linha][coluna] != "·" and m[linha][coluna] != matrix_correta[linha][coluna]:
                 print("errado linha ", linha, " coluna ", coluna)
                 errado = True
+
     if errado:
         return False
     else:
@@ -287,6 +290,35 @@ def preenche_barra_no_espaco(linha, espaco, tamanho_da_barra, debug=False):
             if debug:
                 print_matrix(linha, coluna)
 
+
+def matriz_completa():
+    for linha in range(15):
+        for coluna in range(15):
+            if m[linha][coluna] == "·":
+                return False
+    return True
+
+
+def resolve():
+    global m
+    matriz_de_comparacao = copy.deepcopy(m)
+    quantos_passos_foi_preciso = 0
+
+    while True:
+        executar_passos()
+        quantos_passos_foi_preciso += 1
+
+        if m == matriz_de_comparacao:
+            print_matrix(0, 0)
+            print("O algoritmo não evoluiu mais depois de ", quantos_passos_foi_preciso, " repetições.")
+            break
+
+        matriz_de_comparacao = copy.deepcopy(m)
+
+        if matriz_completa():
+            print_matrix(0, 0)
+            comparar()
+            break
 
 # # # PASSOS # # #
 
@@ -530,6 +562,7 @@ def passo5():
             barras = m[linha][15]
             cabe_mais_de_um = False
 
+            # conferindo se cabe mais de uma barra no mesmo espaço
             for i, tamanho in enumerate(tamanho_de_cada_parte):
                 if len(tamanho_de_cada_parte) > 1:  # se tem mais de uma parte
                     if i == 0:  # primeira casa
@@ -543,38 +576,25 @@ def passo5():
                                 tamanho >= barras[i] + barras[i + 1] + 1):
                             cabe_mais_de_um = True
 
-            if not cabe_mais_de_um:
+            # conferindo se todos os espaços já tem preenchimento
+            tem_espaco_vazio = False
+            for espaco in inicio_e_fim_de_cada_parte:
+                este_espaco_vazio = True
+                for coluna in range(espaco[0], espaco[1] + 1):
+                    if m[linha][coluna] != "·":
+                        este_espaco_vazio = False
+                        break
+                if este_espaco_vazio:
+                    tem_espaco_vazio = True
+                    break
+
+            if not cabe_mais_de_um or not tem_espaco_vazio:
                 for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
                     preenche_barra_no_espaco(linha, espaco, barras[i])
 
-        # nº de barras != nº de espaços
-        # else:
-        #     # se tem mais espaços que barras:
-        #     if len(tamanho_de_cada_parte) > len(m[linha][15]):
-        #         # confere se as barras já estão em seus espaços,
-        #         # mesmo que parcialmente
-        #
-        #         espacos_preenchidos = []
-        #         espacos_vazios = []
-        #         for espaco in inicio_e_fim_de_cada_parte:
-        #             vazio = True
-        #             for coluna in range(espaco[0], espaco[1] + 1):
-        #                 if m[linha][coluna] == 0:
-        #                     # esse espaço tem preenchimento
-        #                     espacos_preenchidos.append(espaco)
-        #                     vazio = False
-        #                     break
-        #             if vazio:
-        #                 espacos_vazios.append(espaco)
-        #
-        #         # as barras já estão em seus devidos lugares:
-        #         if len(espacos_preenchidos) == len(m[linha][15]):
-        #             # então ponha "x" nos espaços vazios
-        #             for espaco in espacos_vazios:
-        #                 for coluna in range(espaco[0], espaco[1] + 1):
-        #                     m[linha][coluna] = "x"
-        #                     if debug:
-        #                         print_matrix(linha, coluna)
+            # cabe mais de um. Mas...
+            # Se todos os espaços já tem preenchimento ou
+            # só um espaço não tem preenchimento, já
 
 
 def passo6(debug=False):
@@ -628,19 +648,4 @@ def passo7(debug=False):
                         print_matrix(linha, coluna)
 
 
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-executar_passos()
-print_matrix(0,0)
-preenche_barra_no_espaco(9, [3, 11], 6)
-preenche_barra_no_espaco(8, [2, 11], 8)
-executar_passos()
-executar_passos()
-executar_passos()
-
-print_matrix(0,0)
-comparar()
+resolve()
