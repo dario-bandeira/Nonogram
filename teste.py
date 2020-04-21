@@ -1,14 +1,6 @@
 import copy
 
-m = [["·" for x in range(6)] for y in range(6)]
+a = [1,2,3,4]
 
-matriz = copy.deepcopy(m)
-
-m[0][0] = "a"
-
-for x in m:
-    print(*x)
-
-for x in matriz:
-    print(*x)
-
+b = copy.deepcopy(a)
+print(type(b))
