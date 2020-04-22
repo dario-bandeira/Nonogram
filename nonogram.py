@@ -125,7 +125,7 @@ matrix_correta = [
 """
 
 # MATRIZ 3 (comedouro de pássaro)
-
+"""
 m[0][15] = [1]
 m[1][15] = [1, 1]
 m[2][15] = [3]
@@ -181,6 +181,124 @@ matrix_correta = [
     [0, 0, "x", 0, "x", "x", 0, 0, 0, "x", "x", 0, 0, 0, 0],
     [0, "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x"]
 ]
+"""
+
+# MATRIZ 4 (mãe terra)
+"""
+m[0][15] = [5]
+m[1][15] = [8]
+m[2][15] = [4, 4]
+m[3][15] = [4, 4]
+m[4][15] = [3, 4, 3]
+
+m[5][15] = [3, 1, 2, 3]
+m[6][15] = [3, 2, 2]
+m[7][15] = [3, 4, 1]
+m[8][15] = [4, 6]
+m[9][15] = [5, 5]
+
+m[10][15] = [10]
+m[11][15] = [3, 6]
+m[12][15] = [2, 4]
+m[13][15] = [8]
+m[14][15] = [8]
+
+m[15][0] = [2]
+m[15][1] = [1, 4]
+m[15][2] = [4, 6]
+m[15][3] = [10, 2]
+m[15][4] = [11, 2]
+
+m[15][5] = [3, 9]
+m[15][6] = [2, 1, 5]
+m[15][7] = [2, 2, 5]
+m[15][8] = [3, 1, 8]
+m[15][9] = [12, 2]
+
+m[15][10] = [3, 5, 1]
+m[15][11] = [3, 3]
+m[15][12] = [3, 2]
+m[15][13] = [5]
+m[15][14] = [2]
+
+matrix_correta = [
+    ["x", "x", "x", "x", "x", 0, 0, 0, 0, 0, "x", "x", "x", "x", "x"],
+    ["x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x", "x"],
+    ["x", "x", 0, 0, 0, 0, "x", "x", 0, 0, 0, 0, "x", "x", "x"],
+    ["x", 0, 0, 0, 0, "x", "x", "x", "x", 0, 0, 0, 0, "x", "x"],
+    ["x", "x", 0, 0, 0, "x", 0, 0, 0, 0, "x", 0, 0, 0, "x"],
+
+    ["x", "x", 0, 0, 0, "x", "x", 0, "x", 0, 0, "x", 0, 0, 0],
+    ["x", "x", "x", 0, 0, 0, "x", "x", "x", 0, 0, "x", "x", 0, 0],
+    ["x", "x", "x", 0, 0, 0, "x", "x", 0, 0, 0, 0, "x", 0, "x"],
+    ["x", "x", 0, 0, 0, 0, "x", "x", 0, 0, 0, 0, 0, 0, "x"],
+    ["x", 0, 0, 0, 0, 0, "x", "x", 0, 0, 0, 0, 0, "x", "x"],
+
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x", "x", "x"],
+    [0, 0, 0, "x", 0, 0, 0, 0, 0, 0, "x", "x", "x", "x", "x"],
+    ["x", 0, 0, "x", "x", 0, 0, 0, 0, "x", "x", "x", "x", "x", "x"],
+    ["x", "x", 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x", "x", "x"],
+    ["x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x", "x"]
+]
+"""
+
+# MATRIZ 5
+
+m[0][15] = [2]
+m[1][15] = [4, 9]
+m[2][15] = [4, 10]
+m[3][15] = [2, 10]
+m[4][15] = [10]
+
+m[5][15] = [9]
+m[6][15] = [6]
+m[7][15] = [2, 1, 6]
+m[8][15] = [6, 2, 2]
+m[9][15] = [2, 4]
+
+m[10][15] = [1, 3, 2]
+m[11][15] = [1, 9, 3]
+m[12][15] = [15]
+m[13][15] = [9]
+m[14][15] = [2]
+
+m[15][0] = [2, 1, 2]
+m[15][1] = [4, 2, 1]
+m[15][2] = [4, 2, 2]
+m[15][3] = [2, 2, 1, 3]
+m[15][4] = [3, 2, 2]
+
+m[15][5] = [4, 1, 2]
+m[15][6] = [7, 3]
+m[15][7] = [7, 4]
+m[15][8] = [13]
+m[15][9] = [13]
+
+m[15][10] = [7, 3]
+m[15][11] = [7, 1, 2]
+m[15][12] = [4, 1, 3]
+m[15][13] = [3, 7]
+m[15][14] = [2, 7]
+
+matrix_correta = [
+    ["x", 0, 0, "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x"],
+    [0, 0, 0, 0, "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ["x", 0, 0, "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x"],
+    ["x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x"],
+
+    ["x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", "x", "x"],
+    ["x", "x", "x", "x", "x", "x", 0, 0, 0, 0, 0, 0, "x", "x", "x"],
+    ["x", 0, 0, "x", 0, "x", 0, 0, 0, 0, 0, 0, "x", "x", "x"],
+    [0, 0, 0, 0, 0, 0, "x", "x", 0, 0, "x", "x", "x", 0, 0],
+    ["x", "x", "x", "x", "x", "x", "x", "x", 0, 0, "x", 0, 0, 0, 0],
+
+    ["x", "x", "x", 0, "x", "x", "x", 0, 0, 0, "x", "x", "x", 0, 0],
+    [0, "x", 0, 0, 0, 0, 0, 0, 0, 0, 0, "x", 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ["x", "x", "x", "x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", 0, 0]
+]
 
 girado = False
 
@@ -217,7 +335,7 @@ def executar_passos(debug=False):
         passo5: '',
         passo6: '',
         passo7: '',
-        # passo8: '',
+        passo8: '',
     }
     for key, val in passos.items():
         if debug:
@@ -361,13 +479,13 @@ def matriz_completa():
     return True
 
 
-def resolve():
+def resolve(debug=False):
     global m
     matriz_de_comparacao = copy.deepcopy(m)
     quantos_passos_foi_preciso = 0
 
     while True:
-        executar_passos()
+        executar_passos(True if debug else False)
         quantos_passos_foi_preciso += 1
 
         if m == matriz_de_comparacao:
@@ -622,16 +740,6 @@ def passo5(debug=False):
             inicio_e_fim_de_cada_parte[-1].append(14)
         tamanho_de_cada_parte.append(medindo)
 
-        """Se o menor espaço da linha for menor que a menor barra,
-        preencher ele com 'x' """
-        barras = m[linha][15]
-        if min(tamanho_de_cada_parte) < min(barras):
-            indice = tamanho_de_cada_parte.index(min(tamanho_de_cada_parte))
-            for coluna in range(inicio_e_fim_de_cada_parte[indice][0], inicio_e_fim_de_cada_parte[indice][1] + 1):
-                m[linha][coluna] = "x"
-                if debug:
-                    print_matrix(linha, coluna)
-
         # nº de espaços = nº de barras
         if len(tamanho_de_cada_parte) == len(m[linha][15]):
             barras = m[linha][15]
@@ -665,7 +773,17 @@ def passo5(debug=False):
 
             if not cabe_mais_de_um or not tem_espaco_vazio:
                 for i, espaco in enumerate(inicio_e_fim_de_cada_parte):
-                    preenche_barra_no_espaco(linha, espaco, barras[i])
+                    preenche_barra_no_espaco(linha, espaco, barras[i], True if debug else False)
+
+        """Se o menor espaço da linha for menor que a menor barra,
+        preencher ele com 'x' """
+        barras = m[linha][15]
+        if min(tamanho_de_cada_parte) < min(barras):
+            indice = tamanho_de_cada_parte.index(min(tamanho_de_cada_parte))
+            for coluna in range(inicio_e_fim_de_cada_parte[indice][0], inicio_e_fim_de_cada_parte[indice][1] + 1):
+                m[linha][coluna] = "x"
+                if debug:
+                    print_matrix(linha, coluna)
 
 
 def passo6(debug=False):
@@ -773,6 +891,7 @@ def passo8(debug=False):
                             if debug:
                                 print_matrix(linha, coluna)
                             coluna += 1
+
         esquerda_pra_direita()
 
     for linha in range(15):
@@ -819,10 +938,8 @@ def passo8(debug=False):
                             if debug:
                                 print_matrix(linha, coluna)
                             coluna -= 1
+
         direita_pra_esquerda()
 
 
 resolve()
-print_matrix()
-passo8()
-print_matrix()
