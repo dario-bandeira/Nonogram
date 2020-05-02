@@ -243,7 +243,21 @@ matrix_correta = [
 """
 
 # MATRIZ 5
+for x in range(15):
+    print("linha ", x, ": ",sep='',end='')
+    v = []
+    for y in input().split():
+        v.append(int(y))
+    m[x][15] = v
 
+for x in range(15):
+    print("coluna ", x, ": ",sep='',end='')
+    v = []
+    for y in input().split():
+        v.append(int(y))
+    m[15][x] = v
+
+"""
 m[0][15] = [2]
 m[1][15] = [4, 9]
 m[2][15] = [4, 10]
@@ -299,6 +313,8 @@ matrix_correta = [
     ["x", "x", "x", "x", "x", "x", 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ["x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", "x", 0, 0]
 ]
+"""
+
 
 girado = False
 
@@ -506,17 +522,19 @@ def resolve(debug=False):
         quantos_passos_foi_preciso += 1
 
         if m == matriz_de_comparacao:
-            print_matrix()
+            # print_matrix()
+            print_matrix_final()
             print("O algoritmo não evoluiu mais depois de", quantos_passos_foi_preciso, "repetições.")
-            comparar()
+            # comparar()
             break
 
         matriz_de_comparacao = copy.deepcopy(m)
 
         if matriz_completa():
-            print_matrix()
+            # print_matrix()
+            print_matrix_final()
             print("Resolvido depois de", quantos_passos_foi_preciso, "repetições.")
-            comparar()
+            # comparar()
             break
 
 
