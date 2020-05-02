@@ -392,6 +392,23 @@ def print_matrix(ll=0, cc=0):
     print()
 
 
+def print_matrix_final():
+    print("- - - - - - - - - - - - - - - - - - -")
+    for i_x, x in enumerate(m[:15]):
+        for i_y, y in enumerate(x[:15]):
+            if i_y % 5 == 0:
+                print("| ", end='')
+            if y == 0:
+                print(bcolors.OKBLUE + str(y) + bcolors.ENDC, "", end='')
+            elif y == "x":
+                print(bcolors.FAIL + y + bcolors.ENDC, "", end='')
+            else:
+                print(y, "", end='')
+        print("|")
+        if (i_x + 1) % 5 == 0:
+            print("- - - - - - - - - - - - - - - - - - -")
+
+
 def comparar():
     errado = False
     for linha in range(15):
@@ -943,3 +960,4 @@ def passo8(debug=False):
 
 
 resolve()
+print_matrix_final()
