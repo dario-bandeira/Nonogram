@@ -2,7 +2,7 @@
 
 Jogo de lógica com números e matrizes.
 
-![imagem do jogo](https://github.com/dario-bandeira/Nonogram/blob/master/img/jogo-final.png)
+![imagem do jogo](https://github.com/dario-bandeira/Nonogram/blob/master/img/jogo-final2.png)
 
 O objetivo é descobrir quais dos quadradinhos devem ser pintados (ou deixados em branco), para formar uma figura, que surgirá quando o passatempo for resolvido corretamente. Cada número, em cima de cada coluna e à esquerda de cada linha, indica quantos quadradinhos deverão ser preenchidos na grade, formando blocos. Entre um bloco e outro deve haver, no mínimo, um espaço em branco. Após completar a grade, será revelada a imagem. 
 
